@@ -298,14 +298,14 @@ function generatePDF() {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
             
-            // Configuración EXACTA igual a la versión Python
+            // Configuración para carnés más anchos y menos altos (12 por página)
             const pageWidth = 210;  // A4 width
             const pageHeight = 297; // A4 height
-            const cardWidth = (pageWidth - 30) / 3;  // (210-30)/3 = 60mm
-            const cardHeight = (pageHeight - 40) / 4; // (297-40)/4 = 64.25mm
-            const marginX = 15;
-            const marginY = 20; // Aumentar margen superior
-            const spaceBetween = 5; // Espacio entre carnés
+            const cardWidth = (pageWidth - 25) / 2;  // (210-25)/2 = 92.5mm - más ancho
+            const cardHeight = (pageHeight - 50) / 6; // (297-50)/6 = 41.17mm - menos alto
+            const marginX = 12.5;
+            const marginY = 20; // Margen superior
+            const spaceBetween = 3; // Espacio entre carnés
             
             // Página de índice PRIMERO
             createIndexPage(pdf, pageWidth, pageHeight);
@@ -402,9 +402,9 @@ function createIndexPage(pdf, pageWidth, pageHeight) {
 
 // Función para generar carnés con lógica EXACTA de Python
 function generateCardsExactAsPython(pdf, students, cardWidth, cardHeight, marginX, marginY, spaceBetween, pageWidth, pageHeight, includeSeal) {
-    const cardsPerPage = 12; // 3x4 grid
-    const cardsPerRow = 3;
-    const cardsPerCol = 4;
+    const cardsPerPage = 12; // 2x6 grid (más anchos, menos altos)
+    const cardsPerRow = 2;
+    const cardsPerCol = 6;
     
     // Proceso en lotes EXACTO como Python
     for (let startIndex = 0; startIndex < students.length; startIndex += cardsPerPage) {
@@ -450,35 +450,37 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
     pdf.setDrawColor(0, 0, 0);
     pdf.rect(x, y, cardWidth, cardHeight);
     
-    // Logo del colegio (esquina superior izquierda)
+    // Logo del colegio (esquina superior izquierda, un poco más grande)
     if (logoData) {
-        const logoSize = 15;
+        const logoSize = 13; // Ligeramente más grande que antes (era 12)
         pdf.addImage(logoData, 'PNG', x + 2, y + 2, logoSize, logoSize);
     }
     
-    // Títulos a la derecha del logo (sin superposición)
+    // Títulos del colegio centrados (solo el texto del colegio)
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(8); // Tamaño adecuado para el espacio disponible
+    pdf.setFontSize(10.5); // Aumentado de 9.5 a 10.5 para hacer el nombre más grande
     pdf.setTextColor(0, 0, 0);
     const titleText1 = 'Colegio Técnico Profesional';
     const titleText2 = 'Agropecuario de Sabalito';
     
-    // Posicionar texto a la derecha del logo (más cerca pero sin superposición)
-    const logoSize = 15;
-    const titleStartX = x + logoSize + 3; // Reducido de 6 a 3 para estar más cerca
-    pdf.text(titleText1, titleStartX, y + 6); // Sin alineación center
-    pdf.text(titleText2, titleStartX, y + 12); // Sin alineación center
+    // Centrar el texto del colegio
+    const titleText1Width = pdf.getTextWidth(titleText1);
+    const titleText2Width = pdf.getTextWidth(titleText2);
+    const centerX = x + cardWidth / 2;
     
-    // Datos del estudiante (bien organizados)
+    pdf.text(titleText1, centerX - titleText1Width / 2, y + 6);
+    pdf.text(titleText2, centerX - titleText2Width / 2, y + 13);
+    
+    // Datos del estudiante (un poco más grandes y bien espaciados)
     const dataX = x + 3;
     
-    // Nombre del estudiante (ajustar posición para títulos reposicionados)
+    // Nombre del estudiante
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
-    pdf.text('Nombre del Estudiante:', dataX, y + 22); // Ajustado para nuevas posiciones de títulos
+    pdf.setFontSize(9); // Aumentado de 8.5 a 9 para etiquetas más grandes
+    pdf.text('Nombre:', dataX, y + 22); // Posición original optimizada
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9); // Aumentado de 8.5 a 9 para datos más grandes
     // Limpiar nombre del estudiante de cualquier texto extra
     let studentName = (student.nombre || '').toString().trim();
     // Remover texto entre paréntesis y caracteres especiales
@@ -504,51 +506,51 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
     });
     if (currentLine) lines.push(currentLine);
     
-    // Mostrar nombre (máximo 2 líneas) con mejor espaciado
+    // Mostrar nombre (máximo 2 líneas) con espaciado original
     lines.slice(0, 2).forEach((line, index) => {
-        pdf.text(line, dataX, y + 28 + (index * 5)); // Ajustado para nueva posición
+        pdf.text(line, dataX, y + 27 + (index * 4)); // Posición original
     });
     
-    // Cédula (ajustar posición para texto más grande)
-    const cedulaY = lines.length > 1 ? y + 40 : y + 36; // Ajustado posiciones
+    // Cédula en línea compacta
+    const cedulaY = lines.length > 1 ? y + 36 : y + 32; // Posición original
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9); // Aumentado de 8.5 a 9
     pdf.text('Cédula:', dataX, cedulaY);
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9); // Aumentado de 8.5 a 9
     // Limpiar cédula de cualquier texto extra
     let cedula = (student.cedula || '').toString().trim();
     cedula = cedula.replace(/[^\d\-]/g, ''); // Solo números y guiones
-    pdf.text(cedula, dataX + 16, cedulaY); // Más cerca - reducido de 20 a 16
+    pdf.text(cedula, dataX + 16, cedulaY); // En la misma línea
     
-    // Ruta (ajustar espaciado - menos espacio ya que cédula no ocupa línea extra)
-    const rutaY = cedulaY + 8; // Reducido de 12 a 8 ya que cédula está en misma línea
+    // Ruta en línea compacta
+    const rutaY = cedulaY + 5; // Espaciado original
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9); // Aumentado de 8.5 a 9
     pdf.text('Ruta:', dataX, rutaY);
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9); // Aumentado de 8.5 a 9
     // Limpiar ruta de cualquier texto extra
     let route = (student.ruta || '').toString().trim();
     route = route.replace(/[^\w\sÁÉÍÓÚáéíóúÑñ\d]/g, ' ').trim();
     route = route.replace(/\s+/g, ' ');
-    pdf.text(route, dataX + 11, rutaY); // En la misma línea que "Ruta:"
+    pdf.text(route, dataX + 12, rutaY); // En la misma línea
     
-    // Imagen del bus (mejor separada del texto inferior)
+    // Imagen del bus (posición original)
     if (busData) {
         const busWidth = 18;
         const busHeight = 12;
-        pdf.addImage(busData, 'PNG', x + cardWidth - busWidth - 3, y + cardHeight - busHeight - 8, busWidth, busHeight); // Cambiado de -3 a -8
+        pdf.addImage(busData, 'PNG', x + cardWidth - busWidth - 2, y + cardHeight - busHeight - 3, busWidth, busHeight);
     }
     
-    // Texto inferior centrado (más grande y destacado)
+    // Texto inferior centrado y un poco más grande
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(8); // Aumentado de 6 a 8
+    pdf.setFontSize(9); // Aumentado de 8.5 a 9 para mayor visibilidad
     const bottomText = 'Carné de Transporte 2025';
     const bottomWidth = pdf.getTextWidth(bottomText);
-    pdf.text(bottomText, x + (cardWidth - bottomWidth) / 2, y + cardHeight - 2);
+    pdf.text(bottomText, x + (cardWidth - bottomWidth) / 2, y + cardHeight - 1);
 }
 
 // Función para dibujar reverso del carné EXACTA como Python (solo sello)
