@@ -1,164 +1,321 @@
-# 🎫 Generador de Carnés de Transporte Web
+# 🚌 Generador de Carnés de Transporte CTP Sabalito
 
-Aplicación web para generar carnés de transporte del Colegio Técnico Profesional Agropecuario de Sabalito.
+<div align="center">
+  <img src="assets/logo.png" alt="Logo CTP Sabalito" width="120"/>
+  
+  **Sistema Web Moderno para Generación de Carnés de Transporte Estudiantil**
+  
+  [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?style=for-the-badge&logo=github)](https://francisco-campos-s.github.io/CTPGeneradorCarnets.githut.io/)
+  [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+  [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+  [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+</div>
 
-## 🌐 Versión Web - GitHub Pages
+## 🌟 Características Principales
 
-Esta aplicación web permite:
-- **📁 Cargar archivos Excel** con la base de datos de estudiantes
-- **� Descargar plantilla Excel** con el formato correcto
-- **�👁️ Vista previa** de los datos antes de generar
-- **🎯 Generar PDF** con carnés organizados por ruta
-- **📱 Interfaz responsive** que funciona en móviles y desktop
-- **🌙 Modo oscuro** para mejor experiencia visual
-- **☁️ Funciona completamente en el navegador** (sin servidor)
+### 💡 **Nueva Interfaz Moderna 2025**
+- 🎨 **Diseño completamente renovado** con esquema de colores verde institucional
+- 🌓 **Modo oscuro integrado** con alternancia automática
+- 📱 **100% Responsive** - Funciona perfectamente en móviles, tablets y desktop
+- ✨ **Efectos glassmorphism** y animaciones fluidas
+- 🎯 **Interfaz intuitiva** con guías visuales paso a paso
 
-## 📋 Características
+### 🚀 **Funcionalidades Avanzadas**
+- 📁 **Carga drag & drop** de archivos Excel
+- 📊 **Vista previa con scroll** para listas largas de estudiantes
+- 🔍 **Validación automática** de formato y datos
+- 📥 **Plantilla Excel descargable** preformateada
+- 🎯 **Generación de PDF optimizada** con organización por rutas
+- 💾 **Funciona 100% offline** después de la primera carga
 
-### ✅ Funcionalidades Principales
-- Carga de archivos Excel (.xlsx/.xls)
-- **Plantilla Excel descargable** con formato correcto
-- Detección automática de la hoja "Base de datos"
-- Validación de columnas requeridas (Nombre, Cedula, Ruta)
-- Organización automática por rutas
-- Generación de PDF con frente y reverso
-- Descarga directa del PDF generado
-- **Modo oscuro/claro** con preferencia guardada
+### � **Generación de PDF Profesional**
+- 📋 **Página de índice automática** con ubicación de rutas
+- 🎫 **12 carnés por página** en formato optimizado
+- 🖼️ **Frente:** Logo institucional + datos del estudiante + imagen de bus
+- 🏛️ **Reverso:** Sello institucional para validación
+- 📑 **Organización por rutas** - No se mezclan estudiantes
+- 🖨️ **Listo para impresión dúplex**
 
-### 🎨 Interfaz de Usuario
-- Diseño moderno y profesional
-- **Instrucciones claras** sobre el formato requerido
-- **Ejemplo visual** del formato de datos
-- Drag & Drop para cargar archivos
-- Barra de progreso durante la generación
-- Vista previa de datos
-- **Modo oscuro** para reducir fatiga visual
-- Responsive design
-- Animaciones suaves
+## 🎯 Acceso Directo
 
-### 📊 Funciones del PDF
-- **Página de índice** con distribución por rutas
-- **Frente del carnét**: Logo, datos del estudiante, imagen del bus
-- **Reverso del carnét**: Sello institucional
-- **Organización por rutas**: No se mezclan estudiantes
-- **12 carnés por página** (3x4 grid)
-- **Listo para imprimir** en modo dúplex
-
-## 🚀 Cómo Usar
-
-### 1. Preparar el Archivo Excel
-
-#### Opción A: Usar la Plantilla (Recomendado)
-1. En la aplicación web, hacer clic en **"📥 Descargar Plantilla Excel"**
-2. Abrir la plantilla descargada
-3. Reemplazar los datos de ejemplo con los estudiantes reales
-4. Mantener el formato y la estructura de las columnas
-
-#### Opción B: Crear Archivo Manual
-- Crear archivo Excel con hoja llamada "Base de datos"
-- Incluir columnas: **Nombre**, **Cedula**, **Ruta**
-- Asegurarse que no hay filas vacías
-
-**Formato requerido:**
+### 🌐 **Usar Ahora (GitHub Pages)**
 ```
-Columna A: Nombre (ej: Juan Pérez González)
-Columna B: Cedula (ej: 1-2345-6789)
-Columna C: Ruta (ej: Ruta 1)
+👉 https://francisco-campos-s.github.io/CTPGeneradorCarnets.githut.io/
 ```
 
-### 2. En la Aplicación Web
-1. Abrir la aplicación web
-2. **Opcional:** Activar modo oscuro con el botón 🌙
-3. Revisar las instrucciones de formato en pantalla
-4. Arrastrar el archivo Excel o hacer clic para seleccionar
-5. Revisar la vista previa de datos
-6. Hacer clic en "🎯 Generar PDF de Carnés"
-7. Descargar el archivo PDF generado
+### 📱 **Características Mobile-First**
+- ✅ Funciona en iPhone, Android, iPad
+- ✅ Interfaz adaptativa automática
+- ✅ Touch-friendly para tablets
+- ✅ Scroll optimizado para listas largas
+
+## � Cómo Usar el Sistema
+
+### 1️⃣ **Preparar Datos de Estudiantes**
+
+#### Opción A: Usar Plantilla (Recomendado) 🎯
+```
+1. Clic en "📥 Descargar Plantilla Excel"
+2. Abrir archivo descargado
+3. Reemplazar datos de ejemplo con estudiantes reales
+4. Guardar y usar en la aplicación
+```
+
+#### Opción B: Crear Archivo Manual 📝
+```excel
+Hoja: "Base de datos"
+Columnas requeridas:
+┌─────────────────┬─────────────┬──────────┐
+│ A: Nombre       │ B: Cedula   │ C: Ruta  │
+├─────────────────┼─────────────┼──────────┤
+│ Juan Pérez Gómez│ 1-2345-6789 │ Ruta 1   │
+│ María López R.  │ 9-8765-4321 │ Ruta 2   │
+│ Ana González H. │ 4-5678-9123 │ Ruta 1   │
+└─────────────────┴─────────────┴──────────┘
+```
+
+### 2️⃣ **En la Aplicación Web**
+```
+1. 🌐 Abrir el enlace de GitHub Pages
+2. 🌙 Opcional: Activar modo oscuro
+3. 📖 Revisar instrucciones de formato
+4. 📁 Arrastrar archivo Excel o hacer clic para seleccionar
+5. 👀 Revisar vista previa de datos (con scroll si hay muchos)
+6. 🎯 Clic en "Generar PDF de Carnés"
+7. 💾 Descargar PDF generado automáticamente
+```
+
+### 3️⃣ **Resultado Final**
+- 📋 **Página de índice** con tabla de rutas y páginas
+- 🎫 **Carnés organizados** por ruta para fácil distribución
+- 🖨️ **Listo para imprimir** en impresora dúplex
+- 📐 **Formato estándar** de 12 carnés por página
+
+## 🛠️ Tecnologías Utilizadas
+
+<div align="center">
+
+| Tecnología | Versión | Propósito |
+|------------|---------|-----------|
+| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | HTML5 | Estructura semántica |
+| ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | CSS3 | Diseño responsive + animaciones |
+| ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | ES6+ | Lógica de aplicación |
+| ![SheetJS](https://img.shields.io/badge/SheetJS-26A69A?style=flat&logo=javascript&logoColor=white) | v0.18.5 | Procesamiento Excel |
+| ![jsPDF](https://img.shields.io/badge/jsPDF-red?style=flat&logo=adobe&logoColor=white) | v2.5.1 | Generación PDF |
+
+</div>
 
 ## 📁 Estructura del Proyecto
 
 ```
-generador-de-carnet-web/
-├── index.html          # Página principal
-├── styles.css          # Estilos CSS
-├── script.js           # Lógica JavaScript
-├── assets/            # Recursos
-│   ├── logo.png       # Logo del colegio
-│   ├── bus.png        # Imagen del autobús
-│   └── sello.jpg      # Sello institucional
-└── README.md          # Documentación
+CTPGeneradorCarnets.githut.io/
+├── 📄 index.html              # Aplicación principal
+├── 🎨 styles.css              # Estilos modernos + responsive
+├── ⚡ script.js               # Lógica JavaScript
+├── 🗂️ assets/                # Recursos del proyecto
+│   ├── 🏫 logo.png           # Logo institucional
+│   ├── 🚌 bus.png            # Imagen para carnés
+│   └── 🏛️ sello.jpg          # Sello institucional
+└── 📋 README.md               # Documentación completa
 ```
 
-## 🌍 Despliegue en GitHub Pages
+### ✨ **Estructura Optimizada**
+- **Solo 7 archivos esenciales** para máximo rendimiento
+- **Sin archivos temporales** o innecesarios
+- **Organización clara** y fácil mantenimiento
+- **Listo para producción** en GitHub Pages
 
-### Opción 1: Subir Manualmente
-1. Crear repositorio en GitHub
-2. Subir todos los archivos de la carpeta `generador-de-carnet-web`
-3. Ir a Settings > Pages
-4. Seleccionar fuente: Deploy from a branch
-5. Seleccionar branch: main
-6. La aplicación estará disponible en: `https://[usuario].github.io/[repositorio]`
+## ⚡ Optimización y Rendimiento
 
-### Opción 2: GitHub Desktop
-1. Abrir GitHub Desktop
-2. File > New Repository
-3. Arrastrar la carpeta del proyecto
-4. Commit y Push
-5. Activar GitHub Pages en el repositorio
+### 🎯 **Repositorio Limpio**
+- ✅ **7 archivos únicamente** - Sin bloat ni archivos temporales
+- ✅ **Tamaño mínimo** - Descarga y clonado rápidos
+- ✅ **Estructura clara** - Fácil navegación y mantenimiento
+- ✅ **GitHub Pages optimizado** - Despliegue instantáneo
 
-## 🔧 Tecnologías Utilizadas
+### 🚀 **Beneficios de la Optimización**
+- 📦 **Repositorio ligero** - Clonado en segundos
+- ⚡ **Carga rápida** - Menos transferencia de datos
+- 🔧 **Mantenimiento simple** - Solo archivos necesarios
+- 🎯 **Foco en funcionalidad** - Sin distracciones
 
-- **HTML5**: Estructura de la aplicación
-- **CSS3**: Diseño responsivo con gradientes y animaciones
-- **JavaScript ES6**: Lógica de la aplicación
-- **SheetJS (xlsx)**: Procesamiento de archivos Excel
-- **jsPDF**: Generación de archivos PDF
-- **Font Awesome**: Iconos (CDN)
+## 🎨 Capturas de Pantalla
 
-## 📱 Compatibilidad
+### 💻 **Desktop (Modo Claro)**
+- 🏠 Interfaz principal con instrucciones
+- 📊 Vista previa de datos con scroll
+- 🎯 Sección de generación con opciones
 
-- ✅ Chrome 80+
-- ✅ Firefox 75+
-- ✅ Safari 13+
-- ✅ Edge 80+
-- ✅ Dispositivos móviles (iOS/Android)
+### 📱 **Mobile (Modo Oscuro)**
+- 📱 Interfaz adaptativa automática
+- 👆 Touch-friendly para dispositivos móviles
+- 🌙 Modo oscuro para reducir fatiga visual
 
-## 📝 Requisitos del Archivo Excel
+### 📄 **PDF Generado**
+- 📋 Página de índice con organización
+- 🎫 Carnés con diseño profesional
+- 🖨️ Formato optimizado para impresión
 
-### Estructura Requerida:
-- **Hoja**: Debe llamarse "Base de datos" o contener "base" y "datos"
-- **Columnas obligatorias**:
-  - `Nombre` o similar (nombre del estudiante)
-  - `Cedula` o similar (número de identificación)
-  - `Ruta` o similar (código de ruta de transporte)
+## 🌍 Despliegue y Configuración
 
-### Ejemplo de Datos:
-| Nombre | Cedula | Ruta |
-|--------|--------|------|
-| Juan Pérez | 123456789 | 6512 |
-| María González | 987654321 | 6513 |
+### GitHub Pages (Automático) 🚀
+```bash
+1. Fork del repositorio
+2. Settings > Pages
+3. Source: Deploy from branch
+4. Branch: main
+5. Guardar
+6. ✅ Disponible en: https://[usuario].github.io/CTPGeneradorCarnets.githut.io/
+```
+
+### Instalación Local 💻
+```bash
+# Clonar repositorio
+git clone https://github.com/Francisco-Campos-S/CTPGeneradorCarnets.githut.io.git
+
+# Navegar al directorio
+cd CTPGeneradorCarnets.githut.io
+
+# Abrir en navegador (elegir según tu sistema)
+open index.html      # macOS
+start index.html     # Windows
+xdg-open index.html  # Linux
+```
+
+### 📦 **Archivos Incluidos**
+- ✅ **index.html** - Aplicación web completa
+- ✅ **styles.css** - Todos los estilos modernos
+- ✅ **script.js** - Lógica completa de generación
+- ✅ **assets/** - Imágenes institucionales (logo, bus, sello)
+- ✅ **README.md** - Esta documentación
+
+## 🎯 Casos de Uso
+
+### 🏫 **Para Administradores del Colegio**
+- ✅ Generación masiva de carnés al inicio del año escolar
+- ✅ Actualización de carnés para estudiantes nuevos
+- ✅ Reimpresión por pérdida o daño de carnés
+- ✅ Organización automática por rutas de transporte
+
+### 👨‍💼 **Para Personal Administrativo**
+- ✅ Interfaz intuitiva sin necesidad de capacitación
+- ✅ Validación automática de datos
+- ✅ Vista previa antes de generar
+- ✅ Descarga inmediata de archivos PDF
+
+### 🚌 **Para Coordinadores de Transporte**
+- ✅ Carnés organizados por ruta
+- ✅ Índice para ubicación rápida
+- ✅ Formato estándar para todos los carnés
+- ✅ Fácil distribución a conductores
+
+## � Configuración Avanzada
+
+### Personalización de Assets 🎨
+```javascript
+// Cambiar logos en script.js
+const logoPath = 'assets/logo.png';      // Logo principal
+const busPath = 'assets/bus.png';        // Imagen del bus
+const selloPath = 'assets/sello.jpg';    // Sello institucional
+```
+
+### Modificar Dimensiones de Carnés 📐
+```javascript
+// En script.js - función drawCardFrontExact()
+const cardWidth = 92.5;   // mm
+const cardHeight = 41.17; // mm
+const cardsPerPage = 12;  // 3x4 grid
+```
 
 ## 🆘 Solución de Problemas
 
-### Error: "No se encontró la hoja Base de datos"
-- Verificar que la hoja se llame exactamente "Base de datos"
-- O que contenga las palabras "base" y "datos"
+### ❌ **Error: "No se encontró la hoja Base de datos"**
+```
+Solución:
+✅ Verificar nombre exacto: "Base de datos"
+✅ O usar plantilla descargable
+✅ Verificar que no hay espacios extra
+```
 
-### Error: "No se encontraron estudiantes válidos"
-- Verificar que las columnas tengan los nombres correctos
-- Asegurarse que no hay filas completamente vacías
-- Verificar que hay datos en las tres columnas requeridas
+### ❌ **Error: "No se encontraron estudiantes válidos"**
+```
+Solución:
+✅ Verificar columnas: Nombre, Cedula, Ruta
+✅ No dejar filas completamente vacías
+✅ Verificar que hay datos en las 3 columnas
+```
 
-### PDF no se descarga
-- Verificar que el navegador permite descargas
-- Intentar en modo incógnito
-- Probar con otro navegador
+### ❌ **PDF no se descarga**
+```
+Solución:
+✅ Permitir descargas en el navegador
+✅ Probar en modo incógnito
+✅ Usar Chrome/Firefox actualizado
+✅ Verificar espacio en disco
+```
 
-## 📞 Soporte
+### 📱 **Problemas en móviles**
+```
+Solución:
+✅ Usar navegador actualizado
+✅ Verificar conexión a internet
+✅ Probar en orientación vertical
+✅ Cerrar otras apps para liberar memoria
+```
 
-Para soporte técnico o preguntas sobre el uso de la aplicación, contactar al administrador del sistema del Colegio Técnico Profesional Agropecuario de Sabalito.
+## 🔒 Privacidad y Seguridad
+
+- 🛡️ **Procesamiento local**: Todos los datos se procesan en el navegador
+- 🚫 **Sin servidor**: No se envían datos a ningún servidor
+- � **Sin almacenamiento**: Los archivos no se guardan permanentemente
+- 🔐 **HTTPS**: Conexión segura vía GitHub Pages
+- 👁️ **Sin tracking**: No se recopilan datos de usuarios
+
+## 📈 Historial de Versiones
+
+### v2.1.0 (2025) - Optimización Completa 🚀
+- 🗂️ **Repositorio optimizado** - Solo archivos esenciales
+- ⚡ **Rendimiento mejorado** - Carga más rápida
+- 🔧 **Estructura simplificada** - 7 archivos únicamente
+- 📦 **Tamaño reducido** - Sin archivos temporales
+- 🎯 **Enfoque en funcionalidad** - Sin distracciones
+
+### v2.0.0 (2025) - Renovación Completa 🆕
+- ✨ Interfaz completamente rediseñada
+- 🎨 Nuevo esquema de colores verde institucional
+- 📱 100% responsive design
+- 🌙 Modo oscuro integrado
+- 📊 Vista previa con scroll para listas largas
+- ⚡ Animaciones y efectos modernos
+- 🔧 Optimización de rendimiento
+
+### v1.0.0 (2024) - Versión Original
+- 📄 Generación básica de PDF
+- 📊 Procesamiento de Excel
+- 🖨️ Formato de carnés estándar
+
+## 📞 Soporte y Contacto
+
+### 🏫 **Colegio Técnico Profesional Agropecuario de Sabalito**
+- 📧 **Email:** administracion@ctpsabalito.edu.cr
+- 📱 **Teléfono:** [Número institucional]
+- 🌐 **Web:** [Sitio web del colegio]
+
+### 💻 **Soporte Técnico**
+- 🐛 **Issues:** [GitHub Issues](https://github.com/Francisco-Campos-S/CTPGeneradorCarnets.githut.io/issues)
+- 📚 **Wiki:** [Documentación extendida](https://github.com/Francisco-Campos-S/CTPGeneradorCarnets.githut.io/wiki)
+- 💡 **Sugerencias:** Crear issue con etiqueta "enhancement"
 
 ---
 
-**© 2025 Colegio Técnico Profesional Agropecuario de Sabalito**  
-*Generador de Carnés de Transporte v1.0*
+<div align="center">
+  
+  **© 2025 Colegio Técnico Profesional Agropecuario de Sabalito**
+  
+  *Generador de Carnés de Transporte v2.1 - Optimizado*
+  
+  [![Hecho con ❤️](https://img.shields.io/badge/Hecho%20con-❤️-red?style=for-the-badge)](https://github.com/Francisco-Campos-S)
+  [![GitHub](https://img.shields.io/badge/GitHub-Francisco--Campos--S-blue?style=for-the-badge&logo=github)](https://github.com/Francisco-Campos-S)
+  [![Optimizado](https://img.shields.io/badge/Optimizado-7%20archivos-green?style=for-the-badge)](https://github.com/Francisco-Campos-S/CTPGeneradorCarnets.githut.io)
+  
+</div>
