@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Carnés de Transporte - CTP Sabalito</title>
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#16a085">
+    <meta name="description" content="Generador de carnés de transporte estudiantil para el CTP Agropecuario de Sabalito">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/logo.png">
+    <link rel="apple-touch-icon" href="assets/logo.png">
 </head>
 <body>
     <div class="container">
@@ -22,6 +29,37 @@
                 </div>
             </div>
         </header>
+
+        <!-- Indicadores de Progreso -->
+        <div class="progress-steps">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-label">Cargar Archivo</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-label">Vista Previa</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-label">Generar PDF</div>
+            </div>
+        </div>
+
+        <!-- Banner de Instalación PWA -->
+        <div class="pwa-install-banner" id="pwaInstallBanner" style="display: none;">
+            <div class="pwa-banner-content">
+                <div class="pwa-banner-icon">📱</div>
+                <div class="pwa-banner-text">
+                    <strong>¡Instala la aplicación!</strong>
+                    <p>Úsala sin conexión y accede más rápido</p>
+                </div>
+                <div class="pwa-banner-buttons">
+                    <button id="installBtn" class="btn-install">Instalar</button>
+                    <button id="dismissBtn" class="btn-dismiss">No, gracias</button>
+                </div>
+            </div>
+        </div>
 
         <main>
             <!-- Sección de Instrucciones -->
@@ -124,6 +162,21 @@
                     <!-- Se llena dinámicamente -->
                 </div>
 
+                <!-- Controles de Búsqueda y Filtros -->
+                <div class="search-filters">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o cédula..." class="search-input">
+                    </div>
+                    <div class="filter-box">
+                        <select id="routeFilter" class="route-filter">
+                            <option value="">📍 Todas las rutas</option>
+                        </select>
+                    </div>
+                    <div class="export-box">
+                        <button class="btn-export" onclick="exportData()">📊 Exportar</button>
+                    </div>
+                </div>
+
                 <div class="preview-table-container">
                     <table class="preview-table">
                         <thead>
@@ -132,6 +185,7 @@
                                 <th>Nombre</th>
                                 <th>Cédula</th>
                                 <th>Ruta</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody id="previewTableBody">
@@ -185,6 +239,9 @@
             <p>Sistema de Generación de Carnés de Transporte Estudiantil</p>
         </footer>
     </div>
+
+    <!-- Contenedor de Notificaciones Toast -->
+    <div id="toastContainer" class="toast-container"></div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>

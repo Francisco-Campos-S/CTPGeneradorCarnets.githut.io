@@ -4,6 +4,91 @@ let routesData = {};
 let logoData = null;
 let busData = null;
 let selloData = null;
+let filteredData = [];
+let deferredPrompt = null;
+
+// Sistema de notificaciones Toast
+class ToastManager {
+    constructor() {
+        this.container = document.getElementById('toastContainer');
+    }
+
+    show(message, type = 'info', title = '', duration = 5000) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icons = {
+            success: '',
+            error: '❌',
+            warning: '⚠️',
+            info: 'ℹ️'
+        };
+
+        toast.innerHTML = `
+            <div class="toast-icon">${icons[type]}</div>
+            <div class="toast-content">
+                ${title ? `<div class="toast-title">${title}</div>` : ''}
+                <div class="toast-message">${message}</div>
+            </div>
+            <button class="toast-close">×</button>
+        `;
+
+        this.container.appendChild(toast);
+
+        // Mostrar toast
+        setTimeout(() => toast.classList.add('show'), 100);
+
+        // Auto-remover
+        setTimeout(() => this.remove(toast), duration);
+
+        // Botón cerrar
+        toast.querySelector('.toast-close').onclick = () => this.remove(toast);
+    }
+
+    remove(toast) {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }
+}
+
+// Instancia global del Toast Manager
+const toast = new ToastManager();
+
+// Progress Manager para indicador de pasos
+class ProgressManager {
+    constructor() {
+        this.currentStep = 1;
+        this.steps = document.querySelectorAll('.step');
+    }
+
+    setStep(stepNumber) {
+        this.currentStep = stepNumber;
+        this.updateUI();
+    }
+
+    completeStep(stepNumber) {
+        this.steps.forEach((step, index) => {
+            const num = index + 1;
+            step.classList.remove('active', 'completed');
+            
+            if (num < stepNumber) {
+                step.classList.add('completed');
+            } else if (num === stepNumber) {
+                step.classList.add('active');
+            }
+        });
+    }
+
+    updateUI() {
+        this.completeStep(this.currentStep);
+    }
+}
+
+const progressManager = new ProgressManager();
 
 // Cargar imágenes al inicializar
 function loadImages() {
@@ -49,7 +134,94 @@ document.addEventListener('DOMContentLoaded', function() {
     loadImages();
     loadSavedTheme();
     initializeApp();
+    initializePWA();
+    initializeSearch();
+    
+    // Mostrar toast de bienvenida
+    setTimeout(() => {
+        toast.show('¡Bienvenido al generador de carnés!', 'success', 'Sistema listo');
+    }, 1000);
 });
+
+// Inicializar PWA
+function initializePWA() {
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registrado:', registration);
+            })
+            .catch(error => {
+                console.log('SW error:', error);
+            });
+    }
+
+    // Detectar prompt de instalación
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallBanner();
+    });
+
+    // Botones de instalación
+    document.getElementById('installBtn')?.addEventListener('click', installPWA);
+    document.getElementById('dismissBtn')?.addEventListener('click', dismissInstallBanner);
+}
+
+function showInstallBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner && !localStorage.getItem('pwa-dismissed')) {
+        banner.style.display = 'block';
+        setTimeout(() => banner.classList.add('show'), 100);
+    }
+}
+
+function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((result) => {
+            if (result.outcome === 'accepted') {
+                toast.show('¡Aplicación instalada correctamente!', 'success');
+            }
+            deferredPrompt = null;
+            dismissInstallBanner();
+        });
+    }
+}
+
+function dismissInstallBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    banner.classList.remove('show');
+    setTimeout(() => banner.style.display = 'none', 300);
+    localStorage.setItem('pwa-dismissed', 'true');
+}
+
+// Inicializar búsqueda y filtros
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const routeFilter = document.getElementById('routeFilter');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(filterData, 300));
+    }
+    
+    if (routeFilter) {
+        routeFilter.addEventListener('change', filterData);
+    }
+}
+
+// Debounce function para optimizar búsqueda
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
 function initializeApp() {
     const fileInput = document.getElementById('fileInput');
