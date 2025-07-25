@@ -47,6 +47,7 @@ function loadImages() {
 // Inicialización
 document.addEventListener('DOMContentLoaded', function() {
     loadImages();
+    loadSavedTheme();
     initializeApp();
 });
 
@@ -126,23 +127,38 @@ function processExcelFile(file) {
                 return;
             }
 
-            // Validar columnas requeridas
+            // Validar columnas requeridas con mapeo flexible
             const requiredColumns = ['Nombre', 'Cedula', 'Ruta'];
             const firstRow = jsonData[0];
             const availableColumns = Object.keys(firstRow);
             
+            // Función para normalizar texto (quitar acentos y convertir a minúsculas)
+            function normalizeText(text) {
+                return text.toLowerCase()
+                    .replace(/á/g, 'a')
+                    .replace(/é/g, 'e')
+                    .replace(/í/g, 'i')
+                    .replace(/ó/g, 'o')
+                    .replace(/ú/g, 'u')
+                    .replace(/ñ/g, 'n')
+                    .replace(/[^a-z0-9]/g, '');
+            }
+            
             let mappedColumns = {};
             for (let required of requiredColumns) {
                 let found = false;
+                const normalizedRequired = normalizeText(required);
+                
                 for (let available of availableColumns) {
-                    if (available.toLowerCase().includes(required.toLowerCase())) {
+                    const normalizedAvailable = normalizeText(available);
+                    if (normalizedAvailable.includes(normalizedRequired)) {
                         mappedColumns[required] = available;
                         found = true;
                         break;
                     }
                 }
                 if (!found) {
-                    showError(`No se encontró la columna "${required}" en el archivo`);
+                    showError(`No se encontró la columna "${required}" en el archivo. Columnas disponibles: ${availableColumns.join(', ')}`);
                     return;
                 }
             }
@@ -440,29 +456,36 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
         pdf.addImage(logoData, 'PNG', x + 2, y + 2, logoSize, logoSize);
     }
     
-    // Títulos centrados en la parte superior
+    // Títulos a la derecha del logo (sin superposición)
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(7);
+    pdf.setFontSize(8); // Tamaño adecuado para el espacio disponible
     pdf.setTextColor(0, 0, 0);
     const titleText1 = 'Colegio Técnico Profesional';
     const titleText2 = 'Agropecuario de Sabalito';
     
-    // Centrar los títulos
-    const titleX = x + cardWidth/2 + 5;
-    pdf.text(titleText1, titleX, y + 8, { align: 'center' });
-    pdf.text(titleText2, titleX, y + 15, { align: 'center' });
+    // Posicionar texto a la derecha del logo (más cerca pero sin superposición)
+    const logoSize = 15;
+    const titleStartX = x + logoSize + 3; // Reducido de 6 a 3 para estar más cerca
+    pdf.text(titleText1, titleStartX, y + 6); // Sin alineación center
+    pdf.text(titleText2, titleStartX, y + 12); // Sin alineación center
     
     // Datos del estudiante (bien organizados)
     const dataX = x + 3;
     
-    // Nombre del estudiante
+    // Nombre del estudiante (ajustar posición para títulos reposicionados)
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(8); // Aumentado de 7 a 8
-    pdf.text('Nombre del Estudiante:', dataX, y + 26);
+    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.text('Nombre del Estudiante:', dataX, y + 22); // Ajustado para nuevas posiciones de títulos
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(8); // Aumentado de 7 a 8
-    const studentName = (student.nombre || '').toString().trim();
+    pdf.setFontSize(10); // Aumentado de 8 a 10
+    // Limpiar nombre del estudiante de cualquier texto extra
+    let studentName = (student.nombre || '').toString().trim();
+    // Remover texto entre paréntesis y caracteres especiales
+    studentName = studentName.replace(/\([^)]*\)/g, '').trim();
+    studentName = studentName.replace(/[^\w\sÁÉÍÓÚáéíóúÑñ]/g, ' ').trim();
+    // Limpiar espacios múltiples
+    studentName = studentName.replace(/\s+/g, ' ');
     
     // Dividir nombre en líneas si es necesario
     const maxWidth = cardWidth - 6;
@@ -481,32 +504,37 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
     });
     if (currentLine) lines.push(currentLine);
     
-    // Mostrar nombre (máximo 2 líneas)
+    // Mostrar nombre (máximo 2 líneas) con mejor espaciado
     lines.slice(0, 2).forEach((line, index) => {
-        pdf.text(line, dataX, y + 32 + (index * 4));
+        pdf.text(line, dataX, y + 28 + (index * 5)); // Ajustado para nueva posición
     });
     
-    // Cédula
-    const cedulaY = lines.length > 1 ? y + 42 : y + 38;
+    // Cédula (ajustar posición para texto más grande)
+    const cedulaY = lines.length > 1 ? y + 40 : y + 36; // Ajustado posiciones
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(8); // Aumentado de 7 a 8
+    pdf.setFontSize(10); // Aumentado de 8 a 10
     pdf.text('Cédula:', dataX, cedulaY);
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(8); // Aumentado de 7 a 8
-    const cedula = (student.cedula || '').toString();
-    pdf.text(cedula, dataX, cedulaY + 4);
+    pdf.setFontSize(10); // Aumentado de 8 a 10
+    // Limpiar cédula de cualquier texto extra
+    let cedula = (student.cedula || '').toString().trim();
+    cedula = cedula.replace(/[^\d\-]/g, ''); // Solo números y guiones
+    pdf.text(cedula, dataX + 16, cedulaY); // Más cerca - reducido de 20 a 16
     
-    // Ruta
-    const rutaY = cedulaY + 10;
+    // Ruta (ajustar espaciado - menos espacio ya que cédula no ocupa línea extra)
+    const rutaY = cedulaY + 8; // Reducido de 12 a 8 ya que cédula está en misma línea
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(8); // Aumentado de 7 a 8
+    pdf.setFontSize(10); // Aumentado de 8 a 10
     pdf.text('Ruta:', dataX, rutaY);
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(8); // Aumentado de 7 a 8
-    const route = (student.ruta || '').toString();
-    pdf.text(route, dataX + 15, rutaY); // En la misma línea
+    pdf.setFontSize(10); // Aumentado de 8 a 10
+    // Limpiar ruta de cualquier texto extra
+    let route = (student.ruta || '').toString().trim();
+    route = route.replace(/[^\w\sÁÉÍÓÚáéíóúÑñ\d]/g, ' ').trim();
+    route = route.replace(/\s+/g, ' ');
+    pdf.text(route, dataX + 11, rutaY); // En la misma línea que "Ruta:"
     
     // Imagen del bus (mejor separada del texto inferior)
     if (busData) {
@@ -515,10 +543,10 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
         pdf.addImage(busData, 'PNG', x + cardWidth - busWidth - 3, y + cardHeight - busHeight - 8, busWidth, busHeight); // Cambiado de -3 a -8
     }
     
-    // Texto inferior centrado
+    // Texto inferior centrado (más grande y destacado)
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(6);
-    const bottomText = 'Carnét de Transporte 2025';
+    pdf.setFontSize(8); // Aumentado de 6 a 8
+    const bottomText = 'Carné de Transporte 2025';
     const bottomWidth = pdf.getTextWidth(bottomText);
     pdf.text(bottomText, x + (cardWidth - bottomWidth) / 2, y + cardHeight - 2);
 }
@@ -600,5 +628,91 @@ function showError(message) {
     // Auto-remover después de 5 segundos
     setTimeout(() => {
         errorDiv.remove();
+    }, 5000);
+}
+
+// Modo Oscuro
+function toggleTheme() {
+    const body = document.body;
+    const themeIcon = document.querySelector('.theme-icon');
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    
+    if (currentTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+    }
+}
+
+// Cargar tema guardado
+function loadSavedTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const themeIcon = document.querySelector('.theme-icon');
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    if (savedTheme === 'dark') {
+        themeIcon.textContent = '☀️';
+    } else {
+        themeIcon.textContent = '🌙';
+    }
+}
+
+// Descargar plantilla Excel
+function downloadTemplate() {
+    // Crear workbook
+    const wb = XLSX.utils.book_new();
+    
+    // Datos de ejemplo para la plantilla
+    const templateData = [
+        ['Nombre', 'Cedula', 'Ruta'],
+        ['Juan Pérez González', '1-2345-6789', 'Ruta 1'],
+        ['María López Rodríguez', '2-3456-7890', 'Ruta 2'],
+        ['Carlos Jiménez Mora', '1-4567-8901', 'Ruta 1'],
+        ['Ana Morales Castro', '2-5678-9012', 'Ruta 3'],
+        ['Luis Vargas Solano', '1-6789-0123', 'Ruta 2']
+    ];
+    
+    // Crear hoja de trabajo
+    const ws = XLSX.utils.aoa_to_sheet(templateData);
+    
+    // Configurar ancho de columnas
+    ws['!cols'] = [
+        { width: 25 }, // Nombre
+        { width: 15 }, // Cedula
+        { width: 12 }  // Ruta
+    ];
+    
+    // Agregar hoja al workbook
+    XLSX.utils.book_append_sheet(wb, ws, 'Base de datos');
+    
+    // Descargar archivo
+    XLSX.writeFile(wb, 'Plantilla_Estudiantes_CTP.xlsx');
+    
+    // Mostrar mensaje de éxito
+    showSuccess('Plantilla descargada exitosamente. Use este formato para cargar sus estudiantes.');
+}
+
+function showSuccess(message) {
+    // Remover errores existentes
+    const existingErrors = document.querySelectorAll('.error, .success');
+    existingErrors.forEach(error => error.remove());
+    
+    // Crear nuevo mensaje de éxito
+    const successDiv = document.createElement('div');
+    successDiv.className = 'success';
+    successDiv.textContent = message;
+    
+    // Insertar después del área de carga
+    const uploadArea = document.getElementById('uploadArea');
+    uploadArea.parentNode.insertBefore(successDiv, uploadArea.nextSibling);
+    
+    // Auto-remover después de 5 segundos
+    setTimeout(() => {
+        successDiv.remove();
     }, 5000);
 }

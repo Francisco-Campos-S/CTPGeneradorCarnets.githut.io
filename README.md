@@ -6,26 +6,33 @@ Aplicación web para generar carnés de transporte del Colegio Técnico Profesio
 
 Esta aplicación web permite:
 - **📁 Cargar archivos Excel** con la base de datos de estudiantes
-- **👁️ Vista previa** de los datos antes de generar
+- **� Descargar plantilla Excel** con el formato correcto
+- **�👁️ Vista previa** de los datos antes de generar
 - **🎯 Generar PDF** con carnés organizados por ruta
 - **📱 Interfaz responsive** que funciona en móviles y desktop
+- **🌙 Modo oscuro** para mejor experiencia visual
 - **☁️ Funciona completamente en el navegador** (sin servidor)
 
 ## 📋 Características
 
 ### ✅ Funcionalidades Principales
 - Carga de archivos Excel (.xlsx/.xls)
+- **Plantilla Excel descargable** con formato correcto
 - Detección automática de la hoja "Base de datos"
-- Validación de columnas requeridas (Nombre, Cédula, Ruta)
+- Validación de columnas requeridas (Nombre, Cedula, Ruta)
 - Organización automática por rutas
 - Generación de PDF con frente y reverso
 - Descarga directa del PDF generado
+- **Modo oscuro/claro** con preferencia guardada
 
 ### 🎨 Interfaz de Usuario
 - Diseño moderno y profesional
+- **Instrucciones claras** sobre el formato requerido
+- **Ejemplo visual** del formato de datos
 - Drag & Drop para cargar archivos
 - Barra de progreso durante la generación
 - Vista previa de datos
+- **Modo oscuro** para reducir fatiga visual
 - Responsive design
 - Animaciones suaves
 
@@ -40,17 +47,33 @@ Esta aplicación web permite:
 ## 🚀 Cómo Usar
 
 ### 1. Preparar el Archivo Excel
+
+#### Opción A: Usar la Plantilla (Recomendado)
+1. En la aplicación web, hacer clic en **"📥 Descargar Plantilla Excel"**
+2. Abrir la plantilla descargada
+3. Reemplazar los datos de ejemplo con los estudiantes reales
+4. Mantener el formato y la estructura de las columnas
+
+#### Opción B: Crear Archivo Manual
 - Crear archivo Excel con hoja llamada "Base de datos"
-- Incluir columnas: **Nombre**, **Cédula**, **Ruta**
+- Incluir columnas: **Nombre**, **Cedula**, **Ruta**
 - Asegurarse que no hay filas vacías
 
+**Formato requerido:**
+```
+Columna A: Nombre (ej: Juan Pérez González)
+Columna B: Cedula (ej: 1-2345-6789)
+Columna C: Ruta (ej: Ruta 1)
+```
+
 ### 2. En la Aplicación Web
-1. Abrir `index.html` en el navegador
-2. Arrastrar el archivo Excel o hacer clic para seleccionar
-3. Revisar la vista previa de datos
-4. Configurar opciones de generación
-5. Hacer clic en "Generar PDF de Carnés"
-6. Descargar el archivo PDF generado
+1. Abrir la aplicación web
+2. **Opcional:** Activar modo oscuro con el botón 🌙
+3. Revisar las instrucciones de formato en pantalla
+4. Arrastrar el archivo Excel o hacer clic para seleccionar
+5. Revisar la vista previa de datos
+6. Hacer clic en "🎯 Generar PDF de Carnés"
+7. Descargar el archivo PDF generado
 
 ## 📁 Estructura del Proyecto
 

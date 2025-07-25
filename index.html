@@ -15,10 +15,80 @@
                     <h1>Generador de Carnés de Transporte</h1>
                     <h2>Colegio Técnico Profesional Agropecuario de Sabalito</h2>
                 </div>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
             </div>
         </header>
 
         <main>
+            <!-- Sección de Instrucciones y Plantilla -->
+            <div class="instructions-section">
+                <div class="instructions-card">
+                    <h3>📋 Formato de la Base de Datos</h3>
+                    <p>Su archivo Excel debe tener una hoja llamada <strong>"Base de datos"</strong> con las siguientes columnas:</p>
+                    
+                    <div class="important-note">
+                        <p><strong>⚠️ Importante:</strong> Use exactamente estos nombres de columnas (sin tildes):</p>
+                    </div>
+                    
+                    <div class="format-info">
+                        <div class="format-columns">
+                            <div class="column-item">
+                                <span class="column-letter">A</span>
+                                <span class="column-name">Nombre</span>
+                            </div>
+                            <div class="column-item">
+                                <span class="column-letter">B</span>
+                                <span class="column-name">Cedula</span>
+                            </div>
+                            <div class="column-item">
+                                <span class="column-letter">C</span>
+                                <span class="column-name">Ruta</span>
+                            </div>
+                        </div>
+                        
+                        <div class="example-data">
+                            <h4>Ejemplo de datos:</h4>
+                            <table class="example-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Cedula</th>
+                                        <th>Ruta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Juan Pérez González</td>
+                                        <td>1-2345-6789</td>
+                                        <td>Ruta 1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>María López Rodríguez</td>
+                                        <td>2-3456-7890</td>
+                                        <td>Ruta 2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Carlos Jiménez Mora</td>
+                                        <td>1-4567-8901</td>
+                                        <td>Ruta 1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="download-template">
+                            <button class="btn-template" onclick="downloadTemplate()">
+                                📥 Descargar Plantilla Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="upload-section">
                 <div class="upload-card">
                     <h3>📋 Cargar Base de Datos de Estudiantes</h3>
@@ -50,7 +120,7 @@
                             <thead>
                                 <tr>
                                     <th>Nombre</th>
-                                    <th>Cédula</th>
+                                    <th>Cedula</th>
                                     <th>Ruta</th>
                                 </tr>
                             </thead>

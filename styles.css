@@ -359,3 +359,301 @@ footer {
     border-radius: 10px;
     margin: 10px 0;
 }
+
+/* Header Actions y Theme Toggle */
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.theme-toggle {
+    background: #667eea;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.theme-toggle:hover {
+    background: #764ba2;
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+/* Sección de Instrucciones */
+.instructions-section {
+    margin-bottom: 30px;
+}
+
+.instructions-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid #667eea;
+}
+
+.instructions-card h3 {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.format-info {
+    margin-top: 20px;
+}
+
+.important-note {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    color: #856404;
+}
+
+.important-note p {
+    margin: 0;
+    font-weight: 600;
+}
+
+.format-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.column-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px;
+    background: #f8f9ff;
+    border-radius: 10px;
+    border: 1px solid #e6e9ff;
+}
+
+.column-letter {
+    background: #667eea;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.column-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.example-data {
+    margin: 25px 0;
+}
+
+.example-data h4 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.example-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.example-table th,
+.example-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e6e9ff;
+}
+
+.example-table th {
+    background: #667eea;
+    color: white;
+    font-weight: 600;
+}
+
+.example-table tr:hover {
+    background: #f8f9ff;
+}
+
+.download-template {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.btn-template {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+}
+
+.btn-template:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* Modo Oscuro */
+[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+[data-theme="dark"] body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .container {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] header,
+[data-theme="dark"] .upload-card,
+[data-theme="dark"] .preview-card,
+[data-theme="dark"] .generate-card,
+[data-theme="dark"] .result-card,
+[data-theme="dark"] .instructions-card {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .header-text h1,
+[data-theme="dark"] .upload-card h3,
+[data-theme="dark"] .preview-card h3,
+[data-theme="dark"] .generate-card h3,
+[data-theme="dark"] .result-card h3,
+[data-theme="dark"] .instructions-card h3 {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .header-text h2 {
+    color: #90cdf4;
+}
+
+[data-theme="dark"] .upload-area {
+    background: #4a5568;
+    border-color: #90cdf4;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .upload-area:hover {
+    background: #5a6578;
+    border-color: #63b3ed;
+}
+
+[data-theme="dark"] .column-item {
+    background: #4a5568;
+    border-color: #5a6578;
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .column-name {
+    color: #f7fafc;
+}
+
+[data-theme="dark"] .example-table {
+    background: #2d3748;
+}
+
+[data-theme="dark"] .example-table th {
+    background: #4a5568;
+}
+
+[data-theme="dark"] .example-table td {
+    color: #e0e0e0;
+    border-color: #4a5568;
+}
+
+[data-theme="dark"] .example-table tr:hover {
+    background: #4a5568;
+}
+
+[data-theme="dark"] #previewTable {
+    background: #2d3748;
+}
+
+[data-theme="dark"] #previewTable th {
+    background: #4a5568;
+    color: #f7fafc;
+}
+
+[data-theme="dark"] #previewTable td {
+    color: #e0e0e0;
+    border-color: #4a5568;
+}
+
+[data-theme="dark"] #previewTable tr:hover {
+    background: #4a5568;
+}
+
+[data-theme="dark"] .file-info {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .features-info p {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .progress-bar {
+    background: #4a5568;
+}
+
+[data-theme="dark"] .result-info {
+    color: #e0e0e0;
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: #4a5568;
+    box-shadow: 0 4px 12px rgba(74, 85, 104, 0.3);
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+    background: #5a6578;
+}
+
+[data-theme="dark"] .important-note {
+    background: #4a5568;
+    border-color: #5a6578;
+    color: #fbd38d;
+}
