@@ -298,14 +298,14 @@ function generatePDF() {
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
             
-            // Configuración EXACTA igual a la versión Python
+            // Configuración para carnés más anchos y menos altos (12 por página)
             const pageWidth = 210;  // A4 width
             const pageHeight = 297; // A4 height
-            const cardWidth = (pageWidth - 30) / 3;  // (210-30)/3 = 60mm
-            const cardHeight = (pageHeight - 40) / 4; // (297-40)/4 = 64.25mm
-            const marginX = 15;
-            const marginY = 20; // Aumentar margen superior
-            const spaceBetween = 5; // Espacio entre carnés
+            const cardWidth = (pageWidth - 25) / 2;  // (210-25)/2 = 92.5mm - más ancho
+            const cardHeight = (pageHeight - 50) / 6; // (297-50)/6 = 41.17mm - menos alto
+            const marginX = 12.5;
+            const marginY = 20; // Margen superior
+            const spaceBetween = 3; // Espacio entre carnés
             
             // Página de índice PRIMERO
             createIndexPage(pdf, pageWidth, pageHeight);
@@ -314,18 +314,8 @@ function generatePDF() {
             const organizeByRoute = true;  // Siempre activado
             const includeSeal = true;      // Siempre activado
             
-            let allStudents = [];
-            if (organizeByRoute) {
-                // Ordenar por rutas EXACTO como Python
-                Object.keys(routesData).sort().forEach(route => {
-                    allStudents = allStudents.concat(routesData[route]);
-                });
-            } else {
-                allStudents = studentsData;
-            }
-            
-            // Generar carnés con lógica EXACTA de Python
-            generateCardsExactAsPython(pdf, allStudents, cardWidth, cardHeight, marginX, marginY, spaceBetween, pageWidth, pageHeight, includeSeal);
+            // Generar carnés separados por ruta (sin mezclar rutas)
+            generateCardsExactAsPython(pdf, [], cardWidth, cardHeight, marginX, marginY, spaceBetween, pageWidth, pageHeight, includeSeal);
 
             // Finalizar y descargar
             const fileName = `Carnets_Transporte_${new Date().getFullYear()}.pdf`;
@@ -354,93 +344,157 @@ function generatePDF() {
 // Crear página de índice
 function createIndexPage(pdf, pageWidth, pageHeight) {
     // Título principal
-    pdf.setFontSize(16);
+    pdf.setFontSize(18);
     pdf.setFont('Helvetica', 'bold');
-    pdf.text('ÍNDICE DE CARNÉS POR RUTA', pageWidth / 2, 50, { align: 'center' });
+    pdf.text('ÍNDICE DE CARNÉS POR RUTA', pageWidth / 2, 40, { align: 'center' });
+    
+    // Línea decorativa bajo el título
+    pdf.setLineWidth(0.5);
+    pdf.line(50, 50, pageWidth - 50, 50);
     
     // Subtítulo
     pdf.setFontSize(12);
-    pdf.setFont('Helvetica', 'bold');
-    pdf.text('Distribución de carnés por ruta:', 50, 80);
-    
-    // Lista de rutas
-    let yPos = 100;
-    pdf.setFontSize(11);
     pdf.setFont('Helvetica', 'normal');
+    pdf.text('Distribución de carnés por ruta de transporte estudiantil', pageWidth / 2, 65, { align: 'center' });
     
-    const sortedRoutes = Object.keys(routesData).sort();
-    sortedRoutes.forEach(route => {
+    // Lista de rutas con formato de índice
+    let yPos = 90;
+    let currentPage = 2; // Empezamos en página 2 (después del índice)
+    
+    pdf.setFontSize(11);
+    pdf.setFont('Helvetica', 'bold');
+    pdf.text('RUTA', 60, yPos);
+    pdf.text('ESTUDIANTES', 140, yPos);
+    pdf.text('PÁGINA', 180, yPos);
+    
+    // Línea bajo encabezados
+    yPos += 5;
+    pdf.setLineWidth(0.3);
+    pdf.line(55, yPos, 200, yPos);
+    yPos += 15;
+    
+    pdf.setFont('Helvetica', 'normal');
+    const sortedRoutes = Object.keys(routesData).sort((a, b) => {
+        // Extraer números de las rutas para ordenamiento numérico
+        const numA = parseInt(a.replace(/\D/g, '')) || 0;
+        const numB = parseInt(b.replace(/\D/g, '')) || 0;
+        return numA - numB;
+    });
+    
+    sortedRoutes.forEach((route, index) => {
         const count = routesData[route].length;
-        pdf.text(`Ruta ${route}:`, 60, yPos);
-        pdf.text(`${count} estudiantes`, 150, yPos);
-        yPos += 15;
+        const pagesForRoute = Math.ceil(count / 12) * 2; // Cada lote de 12 estudiantes = 2 páginas (frente y reverso)
         
-        // Si hay muchas rutas, usar dos columnas
-        if (yPos > 250) {
-            yPos = 100;
-            // Segunda columna (si es necesario)
+        // Fondo alternado para mejor legibilidad
+        if (index % 2 === 0) {
+            pdf.setFillColor(245, 245, 245); // Gris muy claro
+            pdf.rect(55, yPos - 3, 145, 10, 'F');
+        }
+        
+        // Nombre de la ruta
+        pdf.setTextColor(0, 0, 0);
+        pdf.text(`${route}`, 60, yPos);
+        
+        // Número de estudiantes (centrado en su columna)
+        pdf.text(`${count}`, 145, yPos);
+        
+        // Número de página (centrado en su columna)
+        pdf.text(`${currentPage}`, 185, yPos);
+        
+        currentPage += pagesForRoute;
+        yPos += 12;
+        
+        // Si llegamos al final de la página, continuar en nueva columna o página
+        if (yPos > 240) {
+            yPos = 90;
+            // Aquí podrías agregar lógica para nueva página si hay muchas rutas
         }
     });
     
-    // Total al final
-    yPos += 20;
-    pdf.setFont('Helvetica', 'bold');
-    pdf.text(`TOTAL: ${studentsData.length} estudiantes`, 60, yPos);
+    // Línea de total
+    yPos += 10;
+    pdf.setLineWidth(0.5);
+    pdf.line(55, yPos, 200, yPos);
+    yPos += 15;
     
-    // Información adicional
-    yPos += 30;
+    pdf.setFont('Helvetica', 'bold');
+    pdf.text('TOTAL GENERAL', 60, yPos);
+    
+    // Número total de estudiantes (centrado en su columna)
+    pdf.text(`${studentsData.length}`, 145, yPos);
+    
+    // Información del colegio al final
+    yPos += 40;
     pdf.setFontSize(10);
     pdf.setFont('Helvetica', 'normal');
-    pdf.text('Instrucciones:', 50, yPos);
-    yPos += 15;
-    pdf.text('• Configure su impresora en modo "doble cara"', 60, yPos);
+    pdf.text('Colegio Técnico Profesional Agropecuario de Sabalito', pageWidth / 2, yPos, { align: 'center' });
     yPos += 12;
-    pdf.text('• Imprima todas las páginas en orden', 60, yPos);
+    pdf.text(`Generado el: ${new Date().toLocaleDateString('es-CR')}`, pageWidth / 2, yPos, { align: 'center' });
     yPos += 12;
-    pdf.text('• Corte por las líneas de los carnés', 60, yPos);
+    pdf.text(`Año lectivo: ${new Date().getFullYear()}`, pageWidth / 2, yPos, { align: 'center' });
 }
 
 // Función para generar carnés con lógica EXACTA de Python
 function generateCardsExactAsPython(pdf, students, cardWidth, cardHeight, marginX, marginY, spaceBetween, pageWidth, pageHeight, includeSeal) {
-    const cardsPerPage = 12; // 3x4 grid
-    const cardsPerRow = 3;
-    const cardsPerCol = 4;
+    const cardsPerPage = 12; // 2x6 grid (más anchos, menos altos)
+    const cardsPerRow = 2;
+    const cardsPerCol = 6;
     
-    // Proceso en lotes EXACTO como Python
-    for (let startIndex = 0; startIndex < students.length; startIndex += cardsPerPage) {
-        const batch = students.slice(startIndex, startIndex + cardsPerPage);
+    // Generar carnés por ruta para evitar mezclas
+    const sortedRoutes = Object.keys(routesData).sort((a, b) => {
+        // Extraer números de las rutas para ordenamiento numérico
+        const numA = parseInt(a.replace(/\D/g, '')) || 0;
+        const numB = parseInt(b.replace(/\D/g, '')) || 0;
+        return numA - numB;
+    });
+    
+    sortedRoutes.forEach(route => {
+        const routeStudents = routesData[route];
         
-        // PÁGINA FRONTAL (nueva página para cada lote)
-        pdf.addPage();
-        
-        for (let i = 0; i < batch.length; i++) {
-            const student = batch[i];
-            const col = i % cardsPerRow;
-            const row = Math.floor(i / cardsPerRow);
+        // Procesar estudiantes de esta ruta en lotes
+        for (let startIndex = 0; startIndex < routeStudents.length; startIndex += cardsPerPage) {
+            const batch = routeStudents.slice(startIndex, startIndex + cardsPerPage);
             
-            // Posición con espaciado correcto
-            const x = marginX + col * (cardWidth + spaceBetween);
-            const y = marginY + row * (cardHeight + spaceBetween);
+            // PÁGINA FRONTAL (nueva página para cada lote)
+            pdf.addPage();
             
-            drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight);
+            for (let i = 0; i < batch.length; i++) {
+                const student = batch[i];
+                const col = i % cardsPerRow;
+                const row = Math.floor(i / cardsPerRow);
+                
+                // Posición con espaciado correcto
+                const x = marginX + col * (cardWidth + spaceBetween);
+                const y = marginY + row * (cardHeight + spaceBetween);
+                
+                drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight);
+            }
+            
+            // PÁGINA TRASERA
+            pdf.addPage();
+            
+            for (let i = 0; i < batch.length; i++) {
+                const student = batch[i];
+                const originalCol = i % cardsPerRow;
+                const row = Math.floor(i / cardsPerRow);
+                
+                // Si solo hay 1 carné en el lote, mantener la misma posición
+                // Si hay 2 o más carnés, invertir posición horizontal para impresión duplex
+                let col;
+                if (batch.length === 1) {
+                    col = originalCol; // Mantener la misma posición
+                } else {
+                    col = (cardsPerRow - 1) - originalCol; // Invertir solo si hay más de 1
+                }
+                
+                // Posición con espaciado correcto
+                const x = marginX + col * (cardWidth + spaceBetween);
+                const y = marginY + row * (cardHeight + spaceBetween);
+                
+                drawCardBackExact(pdf, student, x, y, cardWidth, cardHeight, includeSeal);
+            }
         }
-        
-        // PÁGINA TRASERA
-        pdf.addPage();
-        
-        for (let i = 0; i < batch.length; i++) {
-            const student = batch[i];
-            // Para el reverso, invertir orden horizontal para impresión duplex
-            const col = (cardsPerRow - 1) - (i % cardsPerRow);
-            const row = Math.floor(i / cardsPerRow);
-            
-            // Posición con espaciado correcto
-            const x = marginX + col * (cardWidth + spaceBetween);
-            const y = marginY + row * (cardHeight + spaceBetween);
-            
-            drawCardBackExact(pdf, student, x, y, cardWidth, cardHeight, includeSeal);
-        }
-    }
+    });
 }
 
 // Función para dibujar frente del carné EXACTA como Python
@@ -450,35 +504,37 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
     pdf.setDrawColor(0, 0, 0);
     pdf.rect(x, y, cardWidth, cardHeight);
     
-    // Logo del colegio (esquina superior izquierda)
+    // Logo del colegio (esquina superior izquierda, un poco más grande)
     if (logoData) {
-        const logoSize = 15;
+        const logoSize = 13; // Ligeramente más grande que antes (era 12)
         pdf.addImage(logoData, 'PNG', x + 2, y + 2, logoSize, logoSize);
     }
     
-    // Títulos a la derecha del logo (sin superposición)
+    // Títulos del colegio centrados (solo el texto del colegio)
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(8); // Tamaño adecuado para el espacio disponible
+    pdf.setFontSize(9.5); // Un poco más grande que antes (era 9)
     pdf.setTextColor(0, 0, 0);
     const titleText1 = 'Colegio Técnico Profesional';
     const titleText2 = 'Agropecuario de Sabalito';
     
-    // Posicionar texto a la derecha del logo (más cerca pero sin superposición)
-    const logoSize = 15;
-    const titleStartX = x + logoSize + 3; // Reducido de 6 a 3 para estar más cerca
-    pdf.text(titleText1, titleStartX, y + 6); // Sin alineación center
-    pdf.text(titleText2, titleStartX, y + 12); // Sin alineación center
+    // Centrar el texto del colegio
+    const titleText1Width = pdf.getTextWidth(titleText1);
+    const titleText2Width = pdf.getTextWidth(titleText2);
+    const centerX = x + cardWidth / 2;
     
-    // Datos del estudiante (bien organizados)
+    pdf.text(titleText1, centerX - titleText1Width / 2, y + 6);
+    pdf.text(titleText2, centerX - titleText2Width / 2, y + 13);
+    
+    // Datos del estudiante (ligeramente más grandes y bien espaciados)
     const dataX = x + 3;
     
-    // Nombre del estudiante (ajustar posición para títulos reposicionados)
+    // Nombre del estudiante
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
-    pdf.text('Nombre del Estudiante:', dataX, y + 22); // Ajustado para nuevas posiciones de títulos
+    pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para etiquetas más grandes
+    pdf.text('Nombre del Estudiante:', dataX, y + 22); // Posición original optimizada
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para datos más grandes
     // Limpiar nombre del estudiante de cualquier texto extra
     let studentName = (student.nombre || '').toString().trim();
     // Remover texto entre paréntesis y caracteres especiales
@@ -504,51 +560,51 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
     });
     if (currentLine) lines.push(currentLine);
     
-    // Mostrar nombre (máximo 2 líneas) con mejor espaciado
+    // Mostrar nombre (máximo 2 líneas) con espaciado original
     lines.slice(0, 2).forEach((line, index) => {
-        pdf.text(line, dataX, y + 28 + (index * 5)); // Ajustado para nueva posición
+        pdf.text(line, dataX, y + 27 + (index * 4)); // Posición original
     });
     
-    // Cédula (ajustar posición para texto más grande)
-    const cedulaY = lines.length > 1 ? y + 40 : y + 36; // Ajustado posiciones
+    // Cédula en línea compacta
+    const cedulaY = lines.length > 1 ? y + 36 : y + 32; // Posición original
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
-    pdf.text('Cédula:', dataX, cedulaY);
+    pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para etiquetas más grandes
+    pdf.text('Cédula: ', dataX, cedulaY);
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para datos más grandes
     // Limpiar cédula de cualquier texto extra
     let cedula = (student.cedula || '').toString().trim();
     cedula = cedula.replace(/[^\d\-]/g, ''); // Solo números y guiones
-    pdf.text(cedula, dataX + 16, cedulaY); // Más cerca - reducido de 20 a 16
+    pdf.text(cedula, dataX + pdf.getTextWidth('Cédula: '), cedulaY); // Justo después de la etiqueta
     
-    // Ruta (ajustar espaciado - menos espacio ya que cédula no ocupa línea extra)
-    const rutaY = cedulaY + 8; // Reducido de 12 a 8 ya que cédula está en misma línea
+    // Ruta en línea compacta
+    const rutaY = cedulaY + 5; // Espaciado original
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
-    pdf.text('Ruta:', dataX, rutaY);
+    pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para etiquetas más grandes
+    pdf.text('Ruta: ', dataX, rutaY);
     
     pdf.setFont('Helvetica', 'normal');
-    pdf.setFontSize(10); // Aumentado de 8 a 10
+    pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para datos más grandes
     // Limpiar ruta de cualquier texto extra
     let route = (student.ruta || '').toString().trim();
     route = route.replace(/[^\w\sÁÉÍÓÚáéíóúÑñ\d]/g, ' ').trim();
     route = route.replace(/\s+/g, ' ');
-    pdf.text(route, dataX + 11, rutaY); // En la misma línea que "Ruta:"
+    pdf.text(route, dataX + pdf.getTextWidth('Ruta: '), rutaY); // Justo después de la etiqueta
     
-    // Imagen del bus (mejor separada del texto inferior)
+    // Imagen del bus (posición original)
     if (busData) {
         const busWidth = 18;
         const busHeight = 12;
-        pdf.addImage(busData, 'PNG', x + cardWidth - busWidth - 3, y + cardHeight - busHeight - 8, busWidth, busHeight); // Cambiado de -3 a -8
+        pdf.addImage(busData, 'PNG', x + cardWidth - busWidth - 2, y + cardHeight - busHeight - 3, busWidth, busHeight);
     }
     
-    // Texto inferior centrado (más grande y destacado)
+    // Texto inferior centrado y un poco más grande
     pdf.setFont('Helvetica', 'bold');
-    pdf.setFontSize(8); // Aumentado de 6 a 8
+    pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para mayor visibilidad
     const bottomText = 'Carné de Transporte 2025';
     const bottomWidth = pdf.getTextWidth(bottomText);
-    pdf.text(bottomText, x + (cardWidth - bottomWidth) / 2, y + cardHeight - 2);
+    pdf.text(bottomText, x + (cardWidth - bottomWidth) / 2, y + cardHeight - 1);
 }
 
 // Función para dibujar reverso del carné EXACTA como Python (solo sello)
