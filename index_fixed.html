@@ -13,7 +13,7 @@
                 <img src="assets/logo.png" alt="Logo CTP Sabalito" class="logo">
                 <div class="header-text">
                     <h1>Colegio Técnico Profesional Agropecuario de Sabalito</h1>
-                    <h2><span class="emoji">🚌</span> Generador de Carnés de Transporte</h2>
+                    <h2>🚌 Generador de Carnés de Transporte</h2>
                 </div>
                 <div class="header-actions">
                     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
@@ -24,10 +24,10 @@
         </header>
 
         <main>
-            <!-- Sección de Instrucciones -->
+            <!-- Sección de Instrucciones y Plantilla -->
             <div class="instructions-section">
                 <div class="instructions-card">
-                    <h3><span class="emoji">📊</span> Formato de la Base de Datos</h3>
+                    <h3>📊 Formato de la Base de Datos</h3>
                     <p>Su archivo Excel debe tener una hoja llamada <strong>"Base de datos"</strong> con las siguientes columnas:</p>
                     
                     <div class="important-note">
@@ -51,34 +51,27 @@
                         </div>
 
                         <h4>Ejemplo de datos:</h4>
-                        <div class="table-container">
-                            <table class="example-table">
-                                <thead>
-                                    <tr>
-                                        <th>NOMBRE</th>
-                                        <th>CEDULA</th>
-                                        <th>RUTA</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Juan Carlos Pérez Gómez</td>
-                                        <td>123456789</td>
-                                        <td>Ruta 1</td>
-                                    </tr>
-                                    <tr>
-                                        <td>María Elena Rodríguez López</td>
-                                        <td>987654321</td>
-                                        <td>Ruta 2</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ana Sofía González Hernández</td>
-                                        <td>456789123</td>
-                                        <td>Ruta 3</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="example-table">
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE</th>
+                                    <th>CEDULA</th>
+                                    <th>RUTA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Juan Pérez Gómez</td>
+                                    <td>123456789</td>
+                                    <td>Ruta 1</td>
+                                </tr>
+                                <tr>
+                                    <td>María Rodríguez López</td>
+                                    <td>987654321</td>
+                                    <td>Ruta 2</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div class="template-download">
@@ -90,9 +83,9 @@
                 </div>
             </div>
 
-            <!-- Sección de Carga -->
-            <div class="upload-card">
-                <h2><span class="emoji">📊</span> Cargar Base de Datos de Estudiantes</h2>
+            <!-- Sección de Carga de Archivo -->
+            <section class="upload-section">
+                <h2>📊 Subir Archivo de Estudiantes</h2>
                 <div class="upload-area" id="uploadArea">
                     <div class="upload-content">
                         <div class="upload-icon">📁</div>
@@ -104,9 +97,9 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Información del archivo -->
+            <!-- Información del archivo cargado -->
             <div class="file-info" id="fileInfo" style="display: none;">
                 <h3>✅ Archivo Cargado Exitosamente</h3>
                 <div class="file-details">
@@ -116,9 +109,9 @@
                 </div>
             </div>
 
-            <!-- Vista previa -->
-            <div class="preview-card" id="previewSection" style="display: none;">
-                <h2><span class="emoji">👀</span> Vista Previa de Datos</h2>
+            <!-- Vista previa de datos -->
+            <section class="preview-section" id="previewSection" style="display: none;">
+                <h2>👀 Vista Previa de Datos</h2>
                 
                 <div class="data-summary" id="dataSummary">
                     <!-- Se llena dinámicamente -->
@@ -139,11 +132,11 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
 
-            <!-- Generación -->
-            <div class="generate-card" id="generateSection" style="display: none;">
-                <h2><span class="emoji">🎯</span> Generar Carnés</h2>
+            <!-- Sección de generación -->
+            <section class="generate-section" id="generateSection" style="display: none;">
+                <h2>🎯 Generar Carnés</h2>
                 
                 <div class="generate-options">
                     <p>Los carnés se generarán con las siguientes características:</p>
@@ -169,15 +162,15 @@
                     <div class="progress-fill" id="progressFill"></div>
                     <div class="progress-text" id="progressText">Generando...</div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Resultado -->
-            <div class="result-card" id="resultSection" style="display: none;">
-                <h2><span class="emoji">✨</span> ¡Generación Completada!</h2>
+            <!-- Resultado final -->
+            <section class="result-section" id="resultSection" style="display: none;">
+                <h2>✨ ¡Generación Completada!</h2>
                 <div class="result-info" id="resultInfo">
                     <!-- Se llena dinámicamente -->
                 </div>
-            </div>
+            </section>
         </main>
 
         <footer>
