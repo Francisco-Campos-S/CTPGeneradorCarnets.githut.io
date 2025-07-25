@@ -212,7 +212,15 @@ function showPreview() {
     const dataSummary = document.getElementById('dataSummary');
     const previewTableBody = document.getElementById('previewTableBody');
 
-    // Crear resumen
+    // Crear resumen con cálculo correcto de páginas
+    // Calcular páginas reales: 1 página de índice + páginas por ruta (cada lote de 12 = 2 páginas)
+    let totalPages = 1; // Página de índice
+    Object.keys(routesData).forEach(route => {
+        const studentsInRoute = routesData[route].length;
+        const batchesInRoute = Math.ceil(studentsInRoute / 12);
+        totalPages += batchesInRoute * 2; // Cada lote = 2 páginas (frente y reverso)
+    });
+    
     dataSummary.innerHTML = `
         <div class="summary-item">
             <div class="number">${studentsData.length}</div>
@@ -223,18 +231,19 @@ function showPreview() {
             <div class="label">Rutas Diferentes</div>
         </div>
         <div class="summary-item">
-            <div class="number">${Math.ceil(studentsData.length / 12)}</div>
-            <div class="label">Páginas Estimadas</div>
+            <div class="number">${totalPages}</div>
+            <div class="label">Páginas Totales</div>
         </div>
     `;
 
-    // Mostrar tabla de vista previa (primeros 10 registros)
+    // Mostrar tabla completa de vista previa con scroll
     previewTableBody.innerHTML = '';
-    const previewData = studentsData.slice(0, 10);
     
-    previewData.forEach(student => {
+    // Mostrar TODOS los estudiantes, no solo los primeros 10
+    studentsData.forEach((student, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
+            <td>${index + 1}</td>
             <td>${student.nombre}</td>
             <td>${student.cedula}</td>
             <td>${student.ruta}</td>
@@ -242,15 +251,14 @@ function showPreview() {
         previewTableBody.appendChild(row);
     });
 
-    if (studentsData.length > 10) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td colspan="3" style="text-align: center; font-style: italic; color: #666;">
-                ... y ${studentsData.length - 10} estudiantes más
-            </td>
-        `;
-        previewTableBody.appendChild(row);
-    }
+    // Agregar información al final de la tabla
+    const infoRow = document.createElement('tr');
+    infoRow.innerHTML = `
+        <td colspan="4" style="text-align: center; font-style: italic; color: #666; background-color: #f8f9fa; padding: 10px;">
+            Total: ${studentsData.length} estudiantes cargados correctamente
+        </td>
+    `;
+    previewTableBody.appendChild(infoRow);
 
     previewSection.style.display = 'block';
     previewSection.classList.add('fade-in');
