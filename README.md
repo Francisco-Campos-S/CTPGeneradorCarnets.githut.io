@@ -3,9 +3,10 @@
 <div align="center">
   <img src="assets/logo.png" alt="Logo CTP Sabalito" width="120"/>
   
-  **Sistema Web Moderno para Generación de Carnés de Transporte Estudiantil**
+  **Aplicación Web Progresiva (PWA) para Generación de Carnés de Transporte Estudiantil**
   
   [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-green?style=for-the-badge&logo=github)](https://francisco-campos-s.github.io/CTPGeneradorCarnets.githut.io/)
+  [![PWA](https://img.shields.io/badge/PWA-Ready-blueviolet?style=for-the-badge&logo=pwa)](https://web.dev/progressive-web-apps/)
   [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
   [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
   [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
@@ -13,28 +14,33 @@
 
 ## 🌟 Características Principales
 
-### 💡 **Nueva Interfaz Moderna 2025**
-- 🎨 **Diseño completamente renovado** con esquema de colores verde institucional
-- 🌓 **Modo oscuro integrado** con alternancia automática
-- 📱 **100% Responsive** - Funciona perfectamente en móviles, tablets y desktop
+### � **Aplicación Web Progresiva (PWA)**
+- 🔄 **Instalable** en dispositivos móviles y desktop
+- 💾 **Funciona offline** después de la primera carga
+- 🚀 **Service Worker** para caché inteligente
+- 📲 **Banner de instalación** con opción de descartar
+- ⚡ **Carga rápida** y experiencia nativa
+
+### 🎨 **Interfaz Moderna 2025**
+- 🌓 **Modo oscuro/claro** con alternancia y persistencia
+- 📱 **100% Responsive** - Móviles, tablets y desktop
 - ✨ **Efectos glassmorphism** y animaciones fluidas
-- 🎯 **Interfaz intuitiva** con guías visuales paso a paso
+- 🎯 **Indicadores de progreso** visuales paso a paso
+- � **Sistema de notificaciones toast** con iconos
 
-### 🚀 **Funcionalidades Avanzadas**
-- 📁 **Carga drag & drop** de archivos Excel
-- 📊 **Vista previa con scroll** para listas largas de estudiantes
-- 🔍 **Validación automática** de formato y datos
-- 📥 **Plantilla Excel descargable** preformateada
-- 🎯 **Generación de PDF optimizada** con organización por rutas
-- 💾 **Funciona 100% offline** después de la primera carga
+### 🔍 **Búsqueda y Filtros Avanzados**
+- � **Búsqueda en tiempo real** con debouncing (300ms)
+- 📍 **Filtros por ruta** con contadores dinámicos
+- 📊 **Exportación de datos** filtrados a Excel
+- � **Dashboard de estadísticas** con métricas completas
+- ✅ **Validación de estado** por estudiante
 
-### � **Generación de PDF Profesional**
-- 📋 **Página de índice automática** con ubicación de rutas
-- 🎫 **12 carnés por página** en formato optimizado
-- 🖼️ **Frente:** Logo institucional + datos del estudiante + imagen de bus
-- 🏛️ **Reverso:** Sello institucional para validación
-- 📑 **Organización por rutas** - No se mezclan estudiantes
-- 🖨️ **Listo para impresión dúplex**
+### � **Funcionalidades Técnicas**
+- 📁 **Drag & Drop** para archivos Excel
+- � **Mapeo flexible** de columnas con reconocimiento inteligente
+- 📊 **Vista previa interactiva** con paginación
+- 🎯 **Generación de PDF** optimizada por rutas
+- 💾 **Persistencia de configuración** en localStorage
 
 ## 🎯 Acceso Directo
 
@@ -43,11 +49,21 @@
 👉 https://francisco-campos-s.github.io/CTPGeneradorCarnets.githut.io/
 ```
 
-### 📱 **Características Mobile-First**
-- ✅ Funciona en iPhone, Android, iPad
-- ✅ Interfaz adaptativa automática
-- ✅ Touch-friendly para tablets
-- ✅ Scroll optimizado para listas largas
+### � **Instalar como App**
+1. Visita el enlace en tu dispositivo
+2. Aparecerá un banner de instalación
+3. Toca "Instalar" para agregar a pantalla de inicio
+4. ¡Úsala como una app nativa!
+
+## 📊 **Funcionalidades de Generación**
+
+### 🎫 **Carnés Profesionales**
+- 📋 **Página de índice automática** con ubicación de rutas
+- 🎫 **12 carnés por página** en formato optimizado para corte
+- 🖼️ **Frente:** Logo + datos del estudiante + imagen de bus
+- 🏛️ **Reverso:** Sello institucional para validación oficial
+- 📑 **Organización por rutas** - Agrupación automática
+- 🖨️ **Listo para impresión dúplex** profesional
 
 ## � Cómo Usar el Sistema
 
@@ -288,6 +304,28 @@ Solución:
 - 📊 Vista previa con scroll para listas largas
 - ⚡ Animaciones y efectos modernos
 - 🔧 Optimización de rendimiento
+
+## 📁 Estructura del Proyecto
+
+```
+CTPGeneradorCarnets.githut.io/
+├── 📄 index.html          # Interfaz principal de la aplicación
+├── 🎨 styles.css          # Estilos completos con modo oscuro
+├── ⚡ script.js           # Lógica JavaScript con funcionalidades avanzadas
+├── 📱 manifest.json       # Configuración PWA para instalación
+├── 🔄 sw.js              # Service Worker para funcionalidad offline
+├── 📚 README.md           # Documentación del proyecto
+└── 📂 assets/
+    ├── 🏫 logo.png        # Logo institucional CTP Sabalito
+    ├── 🚌 bus.png         # Imagen de bus para carnés
+    └── 🏛️ sello.jpg      # Sello institucional oficial
+```
+
+### 📊 **Archivos Principales:**
+- **8 archivos esenciales** para funcionalidad completa
+- **100% autocontenido** - No dependencias externas excepto CDN
+- **Optimizado** para GitHub Pages deployment
+- **PWA Ready** - Instalable y offline
 
 ### v1.0.0 (2024) - Versión Original
 - 📄 Generación básica de PDF
