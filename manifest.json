@@ -1,12 +1,14 @@
 {
   "name": "Generador de Carnés CTP Sabalito",
   "short_name": "Carnés CTP",
-  "description": "Sistema web para generar carnés de transporte estudiantil",
-  "start_url": "/",
+  "description": "Sistema moderno para generar carnés de transporte estudiantil del CTP Sabalito",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#065f46",
   "theme_color": "#047857",
   "orientation": "portrait-primary",
+  "scope": "./",
+  "lang": "es",
   "icons": [
     {
       "src": "assets/logo.png",
@@ -21,8 +23,14 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "productivity", "business"],
-  "lang": "es",
-  "scope": "/",
-  "screenshots": []
+  "categories": ["education", "productivity", "utilities", "business"],
+  "screenshots": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Generador de Carnés CTP Sabalito"
+    }
+  ]
 }

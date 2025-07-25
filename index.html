@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Carnés de Transporte - CTP Sabalito</title>
     <link rel="stylesheet" href="styles.css">
+    
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#047857">
+    <meta name="description" content="Generador de carnés de transporte estudiantil para el CTP Agropecuario de Sabalito">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Carnés CTP">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/logo.png">
     <link rel="apple-touch-icon" href="assets/logo.png">
-    <!-- Preconnect para mejor rendimiento -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <!-- Meta tags adicionales -->
-    <meta name="description" content="Sistema web moderno para generar carnés de transporte estudiantil del CTP Sabalito">
     <meta name="keywords" content="carnés, transporte, estudiantes, CTP, Sabalito, PDF">
     <meta name="author" content="CTP Sabalito">
 </head>
@@ -50,6 +50,37 @@
                 </div>
             </div>
         </header>
+
+        <!-- Indicadores de Progreso -->
+        <div class="progress-steps">
+            <div class="step active" id="step1">
+                <div class="step-number">1</div>
+                <div class="step-label">Cargar Archivo</div>
+            </div>
+            <div class="step" id="step2">
+                <div class="step-number">2</div>
+                <div class="step-label">Vista Previa</div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-number">3</div>
+                <div class="step-label">Generar PDF</div>
+            </div>
+        </div>
+
+        <!-- Banner de Instalación PWA -->
+        <div class="pwa-install-banner" id="pwaInstallBanner" style="display: none;">
+            <div class="pwa-banner-content">
+                <div class="pwa-banner-icon">📱</div>
+                <div class="pwa-banner-text">
+                    <strong>¡Instala la aplicación!</strong>
+                    <p>Úsala sin conexión y accede más rápido</p>
+                </div>
+                <div class="pwa-banner-buttons">
+                    <button id="installBtn" class="btn-install">Instalar</button>
+                    <button id="dismissBtn" class="btn-dismiss">No, gracias</button>
+                </div>
+            </div>
+        </div>
 
         <main>
             <!-- Sección de Instrucciones -->
@@ -153,18 +184,18 @@
                     <!-- Se llena dinámicamente -->
                 </div>
 
-                <!-- Filtros y búsqueda -->
-                <div class="table-controls">
+                <!-- Controles de Búsqueda y Filtros -->
+                <div class="search-filters">
                     <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="🔍 Buscar estudiante..." class="search-input">
+                        <input type="text" id="searchInput" placeholder="🔍 Buscar por nombre o cédula..." class="search-input">
                     </div>
-                    <div class="filter-controls">
-                        <select id="routeFilter" class="filter-select">
+                    <div class="filter-box">
+                        <select id="routeFilter" class="route-filter">
                             <option value="">📍 Todas las rutas</option>
                         </select>
-                        <button id="exportBtn" class="btn-export" onclick="exportData()">
-                            📤 Exportar datos
-                        </button>
+                    </div>
+                    <div class="export-box">
+                        <button class="btn-export" onclick="exportData()">📊 Exportar</button>
                     </div>
                 </div>
 
@@ -231,29 +262,14 @@
         </footer>
     </div>
 
-    <!-- Toast Container para notificaciones -->
-    <div class="toast-container" id="toastContainer"></div>
+    <!-- Contenedor de Notificaciones Toast -->
+    <div id="toastContainer" class="toast-container"></div>
 
     <!-- Overlay de carga global -->
     <div class="loading-overlay" id="loadingOverlay" style="display: none;">
         <div class="loading-spinner">
             <div class="spinner"></div>
             <p class="loading-text">Procesando...</p>
-        </div>
-    </div>
-
-    <!-- PWA Install Prompt -->
-    <div class="pwa-install-banner" id="pwaInstallBanner" style="display: none;">
-        <div class="pwa-banner-content">
-            <div class="pwa-icon">📱</div>
-            <div class="pwa-text">
-                <h4>¡Instala la aplicación!</h4>
-                <p>Accede más rápido desde tu dispositivo</p>
-            </div>
-            <div class="pwa-actions">
-                <button class="btn-install" id="installBtn">Instalar</button>
-                <button class="btn-dismiss" id="dismissBtn">Después</button>
-            </div>
         </div>
     </div>
 
