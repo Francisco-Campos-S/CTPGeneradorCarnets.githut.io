@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Carnés de Transporte - CTP Sabalito</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <img src="assets/logo.png" alt="Logo CTP Sabalito" class="logo">
+                <div class="header-text">
+                    <h1>Generador de Carnés de Transporte</h1>
+                    <h2>Colegio Técnico Profesional Agropecuario de Sabalito</h2>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="upload-section">
+                <div class="upload-card">
+                    <h3>📋 Cargar Base de Datos de Estudiantes</h3>
+                    <p>Seleccione el archivo Excel con la hoja "Base de datos" que contiene la información de los estudiantes.</p>
+                    
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📁</div>
+                        <p>Arrastre su archivo Excel aquí o haga clic para seleccionar</p>
+                        <input type="file" id="fileInput" accept=".xlsx,.xls" hidden>
+                        <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                            Seleccionar Archivo Excel
+                        </button>
+                    </div>
+
+                    <div class="file-info" id="fileInfo" style="display: none;">
+                        <p><strong>Archivo seleccionado:</strong> <span id="fileName"></span></p>
+                        <p><strong>Estudiantes encontrados:</strong> <span id="studentCount">0</span></p>
+                        <p><strong>Rutas detectadas:</strong> <span id="routeCount">0</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-section" id="previewSection" style="display: none;">
+                <div class="preview-card">
+                    <h3>👁️ Vista Previa de Datos</h3>
+                    <div class="data-summary" id="dataSummary"></div>
+                    <div class="table-container">
+                        <table id="previewTable">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Cédula</th>
+                                    <th>Ruta</th>
+                                </tr>
+                            </thead>
+                            <tbody id="previewTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="generate-section" id="generateSection" style="display: none;">
+                <div class="generate-card">
+                    <h3>🎫 Generar Carnés</h3>
+                    <p>Los carnés se generarán organizados por ruta con frente y reverso.</p>
+                    
+                    <div class="features-info">
+                        <p>✅ Organizados por rutas</p>
+                        <p>✅ Incluye sello en el reverso</p>
+                    </div>
+
+                    <button class="btn-generate" id="generateBtn" onclick="generatePDF()">
+                        🎯 Generar PDF de Carnés
+                    </button>
+
+                    <div class="progress-bar" id="progressBar" style="display: none;">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <span class="progress-text" id="progressText">Generando...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-card">
+                    <h3>✅ ¡Carnés Generados Exitosamente!</h3>
+                    <div class="result-info" id="resultInfo"></div>
+                    <button class="btn-download" id="downloadBtn">
+                        📥 Descargar PDF
+                    </button>
+                    <button class="btn-reset" onclick="resetApp()">
+                        🔄 Generar Nuevos Carnés
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Colegio Técnico Profesional Agropecuario de Sabalito</p>
+            <p>Generador de Carnés de Transporte v1.0</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
