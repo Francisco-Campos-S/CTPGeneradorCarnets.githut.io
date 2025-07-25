@@ -1,6 +1,37 @@
-# 🚌 Generador de Carnés de Transporte CTP Sabalito
+# 🚌 Generador de Carnés de Transporte CTP S## ### 🎨 **Interfaz Moderna 2025**
+- 🌓 **Modo oscuro/claro** con alternancia y persistencia
+- 📱 **100% Responsive** - Móviles, tablets y desktop
+- ✨ **Efectos glassmorphism** y animaciones fluidas
+- �🎯 **Indicadores de progreso** visuales paso a paso
+- 🔔 **Sistema de notificaciones toast** con iconos
+- 📹 **Tutorial integrado** con video paso a pasoso Directo
 
-<div align="center">
+### 🌐 **Usar Ahora (GitHub Pages)**
+```
+👉 https://francisco-campos-s.github.io/CTPGeneradorCarnets.githut.io/
+```
+
+### 📱 **Instalar como App**
+1. Visita el enlace en tu dispositivo
+2. Aparecerá un banner de instalación
+3. Toca "Instalar" para agregar a pantalla de inicio
+4. ¡Úsala como una app nativa!
+
+## 📹 **Tutorial en Video**
+
+### 🎥 **Aprende con Video Tutorial Completo**
+[![Tutorial CTP Sabalito](https://img.shields.io/badge/YouTube-Tutorial%20Completo-red?style=for-the-badge&logo=youtube)](https://youtu.be/-50Ebl_7W24)
+
+**🎯 En el video aprenderás:**
+- 📁 **Preparación correcta** del archivo Excel
+- ⬆️ **Carga de datos** de estudiantes paso a paso
+- 👀 **Uso de vista previa** y filtros avanzados
+- 🖨️ **Generación del PDF** final listo para imprimir
+- 🎨 **Configuraciones avanzadas** y personalización
+
+> 💡 **Tip**: El tutorial está integrado en la aplicación web para acceso rápido
+
+## 📊 **Funcionalidades de Generación**v align="center">
   <img src="assets/logo.png" alt="Logo CTP Sabalito" width="120"/>
   
   **Aplicación Web Progresiva (PWA) para Generación de Carnés de Transporte Estudiantil**
@@ -11,6 +42,29 @@
   [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
   [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 </div>
+
+## 🚀 **Funcionalidades Destacadas**
+
+<table>
+  <tr>
+    <td align="center">📹</td>
+    <td><strong>Tutorial Integrado</strong><br/>Video paso a paso embebido en la aplicación</td>
+    <td align="center">📱</td>
+    <td><strong>PWA Instalable</strong><br/>Funciona como app nativa offline</td>
+  </tr>
+  <tr>
+    <td align="center">🔍</td>
+    <td><strong>Búsqueda Inteligente</strong><br/>Filtros en tiempo real con debouncing</td>
+    <td align="center">🌓</td>
+    <td><strong>Modo Oscuro</strong><br/>Tema claro/oscuro con persistencia</td>
+  </tr>
+  <tr>
+    <td align="center">🎯</td>
+    <td><strong>Indicadores Visuales</strong><br/>Progreso paso a paso interactivo</td>
+    <td align="center">📊</td>
+    <td><strong>Dashboard Completo</strong><br/>Estadísticas y métricas en tiempo real</td>
+  </tr>
+</table>
 
 ## 🌟 Características Principales
 
@@ -296,11 +350,25 @@ Solución:
 - 📦 **Tamaño reducido** - Sin archivos temporales
 - 🎯 **Enfoque en funcionalidad** - Sin distracciones
 
-### v2.0.0 (2025) - Renovación Completa 🆕
+### v2.1.0 (2025) - Actualización Mayor 🆕
+- 📹 **Tutorial integrado** con video YouTube embebido
+- 📱 **PWA completa** - Instalable en dispositivos
+- 🔔 **Sistema de notificaciones** toast avanzado
+- 🔍 **Búsqueda en tiempo real** con debouncing
+- 📊 **Dashboard de estadísticas** mejorado
+- 🎯 **Indicadores de progreso** visuales
+- 📤 **Exportación de datos** filtrados
+- 🌓 **Modo oscuro** completamente integrado
+- ✨ **Efectos glassmorphism** y animaciones
+- 📱 **Responsive design** optimizado
+- ⚡ **Service Worker** para funcionalidad offline
+- � **Interfaz renovada** con esquema verde institucional
+
+### v2.0.0 (2025) - Renovación Base
 - ✨ Interfaz completamente rediseñada
-- 🎨 Nuevo esquema de colores verde institucional
+- 🎨 Nuevo esquema de colores verde institucional  
 - 📱 100% responsive design
-- 🌙 Modo oscuro integrado
+- 🌙 Modo oscuro básico
 - 📊 Vista previa con scroll para listas largas
 - ⚡ Animaciones y efectos modernos
 - 🔧 Optimización de rendimiento
@@ -309,23 +377,32 @@ Solución:
 
 ```
 CTPGeneradorCarnets.githut.io/
-├── 📄 index.html          # Interfaz principal de la aplicación
-├── 🎨 styles.css          # Estilos completos con modo oscuro
-├── ⚡ script.js           # Lógica JavaScript con funcionalidades avanzadas
+├── 📄 index.html          # Interfaz principal con tutorial integrado
+├── 🎨 styles.css          # Estilos completos con tema oscuro/claro
+├── ⚡ script.js           # JavaScript avanzado con PWA y funcionalidades
 ├── 📱 manifest.json       # Configuración PWA para instalación
 ├── 🔄 sw.js              # Service Worker para funcionalidad offline
-├── 📚 README.md           # Documentación del proyecto
+├── 📚 README.md           # Documentación completa del proyecto
 └── 📂 assets/
     ├── 🏫 logo.png        # Logo institucional CTP Sabalito
     ├── 🚌 bus.png         # Imagen de bus para carnés
     └── 🏛️ sello.jpg      # Sello institucional oficial
 ```
 
-### 📊 **Archivos Principales:**
+### 📊 **Características Técnicas:**
 - **8 archivos esenciales** para funcionalidad completa
-- **100% autocontenido** - No dependencias externas excepto CDN
+- **100% autocontenido** - Solo CDN externos para librerías
+- **PWA Ready** - Instalable y funcionamiento offline
 - **Optimizado** para GitHub Pages deployment
-- **PWA Ready** - Instalable y offline
+- **Responsive** - Móviles, tablets y desktop
+- **Accesible** - Compatible con lectores de pantalla
+
+### 🚀 **Tecnologías Utilizadas:**
+- **Frontend**: HTML5, CSS3 (Flexbox/Grid), JavaScript ES6+
+- **PWA**: Service Worker, Web App Manifest
+- **Librerías**: jsPDF (generación PDF), XLSX (procesamiento Excel)
+- **Deployment**: GitHub Pages con CI/CD automático
+- **Video**: YouTube embebido responsive
 
 ### v1.0.0 (2024) - Versión Original
 - 📄 Generación básica de PDF
