@@ -762,16 +762,6 @@ footer {
     backdrop-filter: blur(10px);
 }
 
-.important-note::before {
-    content: '⚠️';
-    position: absolute;
-    top: -10px;
-    left: 20px;
-    background: white;
-    padding: 0 10px;
-    font-size: 1.2rem;
-}
-
 .important-note p {
     margin: 0;
     font-weight: 600;
