@@ -1543,6 +1543,160 @@ footer {
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
+/* Sección de Tutorial en Video */
+.tutorial-section {
+    margin-bottom: 35px;
+}
+
+.tutorial-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.tutorial-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #16a085, #10b981, #059669);
+}
+
+.tutorial-card h2 {
+    color: #065f46;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, #065f46, #16a085);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tutorial-card p {
+    color: #374151;
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.video-container {
+    margin: 25px 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    background: #000;
+}
+
+.video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.tutorial-highlights {
+    background: rgba(22, 160, 133, 0.05);
+    border: 1px solid rgba(22, 160, 133, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 25px 0;
+    text-align: left;
+}
+
+.tutorial-highlights h4 {
+    color: #16a085;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.tutorial-highlights ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tutorial-highlights li {
+    color: #374151;
+    margin-bottom: 8px;
+    padding-left: 10px;
+    position: relative;
+    line-height: 1.5;
+}
+
+.tutorial-highlights li::before {
+    content: '▶';
+    color: #16a085;
+    font-size: 0.8rem;
+    position: absolute;
+    left: -5px;
+    top: 0;
+}
+
+.tutorial-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+.btn-youtube,
+.btn-skip {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-youtube {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+}
+
+.btn-youtube:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+    background: linear-gradient(135deg, #e60000, #b30000);
+}
+
+.btn-skip {
+    background: rgba(107, 114, 128, 0.1);
+    color: #6b7280;
+    border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+.btn-skip:hover {
+    background: rgba(107, 114, 128, 0.2);
+    color: #374151;
+    transform: translateY(-1px);
+}
+
 /* Sección de Instrucciones moderna */
 .instructions-section {
     margin-bottom: 35px;
@@ -1806,7 +1960,8 @@ footer {
 [data-theme="dark"] .preview-card,
 [data-theme="dark"] .generate-card,
 [data-theme="dark"] .result-card,
-[data-theme="dark"] .instructions-card {
+[data-theme="dark"] .instructions-card,
+[data-theme="dark"] .tutorial-card {
     background: #2d3748;
     border-color: #4a5568;
     color: #e0e0e0;
@@ -1819,6 +1974,42 @@ footer {
 [data-theme="dark"] .result-card h3,
 [data-theme="dark"] .instructions-card h3 {
     color: #f7fafc;
+}
+
+[data-theme="dark"] .tutorial-card h2 {
+    color: #f7fafc;
+    background: linear-gradient(135deg, #90cdf4, #16a085);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+[data-theme="dark"] .tutorial-card p {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .tutorial-highlights {
+    background: rgba(22, 160, 133, 0.1);
+    border-color: rgba(22, 160, 133, 0.3);
+}
+
+[data-theme="dark"] .tutorial-highlights h4 {
+    color: #16a085;
+}
+
+[data-theme="dark"] .tutorial-highlights li {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .btn-skip {
+    background: rgba(160, 174, 192, 0.1);
+    color: #a0aec0;
+    border-color: rgba(160, 174, 192, 0.2);
+}
+
+[data-theme="dark"] .btn-skip:hover {
+    background: rgba(160, 174, 192, 0.2);
+    color: #e2e8f0;
 }
 
 [data-theme="dark"] .header-text h2 {
@@ -2390,6 +2581,44 @@ footer {
 
 /* Responsive para nuevos elementos */
 @media (max-width: 768px) {
+    .tutorial-card {
+        padding: 25px 20px;
+        margin-bottom: 20px;
+    }
+    
+    .tutorial-card h2 {
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+    
+    .tutorial-card p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .tutorial-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .btn-youtube,
+    .btn-skip {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .tutorial-highlights {
+        padding: 15px;
+        margin: 20px 0;
+    }
+    
+    .tutorial-highlights h4 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+    }
+    
     .progress-steps {
         gap: 25px;
         margin: 20px auto;
