@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Carnés de Transporte - CTP Sabalito</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#047857">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Carnés CTP">
+    <link rel="apple-touch-icon" href="assets/logo.png">
+    <!-- Preconnect para mejor rendimiento -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <!-- Meta tags adicionales -->
+    <meta name="description" content="Sistema web moderno para generar carnés de transporte estudiantil del CTP Sabalito">
+    <meta name="keywords" content="carnés, transporte, estudiantes, CTP, Sabalito, PDF">
+    <meta name="author" content="CTP Sabalito">
 </head>
 <body>
     <div class="container">
@@ -16,6 +29,21 @@
                     <h2><span class="emoji">🚌</span> Generador de Carnés de Transporte</h2>
                 </div>
                 <div class="header-actions">
+                    <!-- Indicador de progreso general -->
+                    <div class="progress-indicator" id="progressIndicator">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-label">Cargar</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-label">Revisar</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-label">Generar</span>
+                        </div>
+                    </div>
                     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
                         <span class="theme-icon">🌙</span>
                     </button>
@@ -108,7 +136,7 @@
 
             <!-- Información del archivo -->
             <div class="file-info" id="fileInfo" style="display: none;">
-                <h3>✅ Archivo Cargado Exitosamente</h3>
+                <h3>✓ Archivo Cargado Exitosamente</h3>
                 <div class="file-details">
                     <p><strong>Archivo:</strong> <span id="fileName"></span></p>
                     <p><strong>Estudiantes encontrados:</strong> <span id="studentCount"></span></p>
@@ -120,8 +148,24 @@
             <div class="preview-card" id="previewSection" style="display: none;">
                 <h2><span class="emoji">👀</span> Vista Previa de Datos</h2>
                 
-                <div class="data-summary" id="dataSummary">
+                <!-- Dashboard de estadísticas mejorado -->
+                <div class="stats-dashboard" id="dataSummary">
                     <!-- Se llena dinámicamente -->
+                </div>
+
+                <!-- Filtros y búsqueda -->
+                <div class="table-controls">
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="🔍 Buscar estudiante..." class="search-input">
+                    </div>
+                    <div class="filter-controls">
+                        <select id="routeFilter" class="filter-select">
+                            <option value="">📍 Todas las rutas</option>
+                        </select>
+                        <button id="exportBtn" class="btn-export" onclick="exportData()">
+                            📤 Exportar datos
+                        </button>
+                    </div>
                 </div>
 
                 <div class="preview-table-container">
@@ -132,6 +176,7 @@
                                 <th>Nombre</th>
                                 <th>Cédula</th>
                                 <th>Ruta</th>
+                                <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody id="previewTableBody">
@@ -148,10 +193,10 @@
                 <div class="generate-options">
                     <p>Los carnés se generarán con las siguientes características:</p>
                     <ul>
-                        <li>✅ <strong>Organizados por ruta</strong> - Los estudiantes se agrupan por ruta para facilitar la distribución</li>
-                        <li>✅ <strong>Formato estándar</strong> - 12 carnés por página en formato carta</li>
-                        <li>✅ <strong>Doble cara</strong> - Frente con datos del estudiante y reverso con sello institucional</li>
-                        <li>✅ <strong>Página de índice</strong> - Lista de rutas con número de página para fácil ubicación</li>
+                        <li>✓ <strong>Organizados por ruta</strong> - Los estudiantes se agrupan por ruta para facilitar la distribución</li>
+                        <li>✓ <strong>Formato estándar</strong> - 12 carnés por página en formato carta</li>
+                        <li>✓ <strong>Doble cara</strong> - Frente con datos del estudiante y reverso con sello institucional</li>
+                        <li>✓ <strong>Página de índice</strong> - Lista de rutas con número de página para fácil ubicación</li>
                     </ul>
                 </div>
 
@@ -184,6 +229,32 @@
             <p>&copy; 2025 Colegio Técnico Profesional Agropecuario de Sabalito</p>
             <p>Sistema de Generación de Carnés de Transporte Estudiantil</p>
         </footer>
+    </div>
+
+    <!-- Toast Container para notificaciones -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Overlay de carga global -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p class="loading-text">Procesando...</p>
+        </div>
+    </div>
+
+    <!-- PWA Install Prompt -->
+    <div class="pwa-install-banner" id="pwaInstallBanner" style="display: none;">
+        <div class="pwa-banner-content">
+            <div class="pwa-icon">📱</div>
+            <div class="pwa-text">
+                <h4>¡Instala la aplicación!</h4>
+                <p>Accede más rápido desde tu dispositivo</p>
+            </div>
+            <div class="pwa-actions">
+                <button class="btn-install" id="installBtn">Instalar</button>
+                <button class="btn-dismiss" id="dismissBtn">Después</button>
+            </div>
+        </div>
     </div>
 
     <!-- Scripts -->

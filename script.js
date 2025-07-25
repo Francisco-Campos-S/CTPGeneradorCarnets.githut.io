@@ -4,6 +4,91 @@ let routesData = {};
 let logoData = null;
 let busData = null;
 let selloData = null;
+let filteredData = [];
+let deferredPrompt = null;
+
+// Sistema de notificaciones Toast
+class ToastManager {
+    constructor() {
+        this.container = document.getElementById('toastContainer');
+    }
+
+    show(message, type = 'info', title = '', duration = 5000) {
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        const icons = {
+            success: '',
+            error: '❌',
+            warning: '⚠️',
+            info: 'ℹ️'
+        };
+
+        toast.innerHTML = `
+            <div class="toast-icon">${icons[type]}</div>
+            <div class="toast-content">
+                ${title ? `<div class="toast-title">${title}</div>` : ''}
+                <div class="toast-message">${message}</div>
+            </div>
+            <button class="toast-close">×</button>
+        `;
+
+        this.container.appendChild(toast);
+
+        // Mostrar toast
+        setTimeout(() => toast.classList.add('show'), 100);
+
+        // Auto-remover
+        setTimeout(() => this.remove(toast), duration);
+
+        // Botón cerrar
+        toast.querySelector('.toast-close').onclick = () => this.remove(toast);
+    }
+
+    remove(toast) {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }
+}
+
+// Instancia global del Toast Manager
+const toast = new ToastManager();
+
+// Progress Manager para indicador de pasos
+class ProgressManager {
+    constructor() {
+        this.currentStep = 1;
+        this.steps = document.querySelectorAll('.step');
+    }
+
+    setStep(stepNumber) {
+        this.currentStep = stepNumber;
+        this.updateUI();
+    }
+
+    completeStep(stepNumber) {
+        this.steps.forEach((step, index) => {
+            const num = index + 1;
+            step.classList.remove('active', 'completed');
+            
+            if (num < stepNumber) {
+                step.classList.add('completed');
+            } else if (num === stepNumber) {
+                step.classList.add('active');
+            }
+        });
+    }
+
+    updateUI() {
+        this.completeStep(this.currentStep);
+    }
+}
+
+const progressManager = new ProgressManager();
 
 // Cargar imágenes al inicializar
 function loadImages() {
@@ -49,7 +134,94 @@ document.addEventListener('DOMContentLoaded', function() {
     loadImages();
     loadSavedTheme();
     initializeApp();
+    initializePWA();
+    initializeSearch();
+    
+    // Mostrar toast de bienvenida
+    setTimeout(() => {
+        toast.show('¡Bienvenido al generador de carnés!', 'success', 'Sistema listo');
+    }, 1000);
 });
+
+// Inicializar PWA
+function initializePWA() {
+    // Registrar Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => {
+                console.log('SW registrado:', registration);
+            })
+            .catch(error => {
+                console.log('SW error:', error);
+            });
+    }
+
+    // Detectar prompt de instalación
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallBanner();
+    });
+
+    // Botones de instalación
+    document.getElementById('installBtn')?.addEventListener('click', installPWA);
+    document.getElementById('dismissBtn')?.addEventListener('click', dismissInstallBanner);
+}
+
+function showInstallBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner && !localStorage.getItem('pwa-dismissed')) {
+        banner.style.display = 'block';
+        setTimeout(() => banner.classList.add('show'), 100);
+    }
+}
+
+function installPWA() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((result) => {
+            if (result.outcome === 'accepted') {
+                toast.show('¡Aplicación instalada correctamente!', 'success');
+            }
+            deferredPrompt = null;
+            dismissInstallBanner();
+        });
+    }
+}
+
+function dismissInstallBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    banner.classList.remove('show');
+    setTimeout(() => banner.style.display = 'none', 300);
+    localStorage.setItem('pwa-dismissed', 'true');
+}
+
+// Inicializar búsqueda y filtros
+function initializeSearch() {
+    const searchInput = document.getElementById('searchInput');
+    const routeFilter = document.getElementById('routeFilter');
+    
+    if (searchInput) {
+        searchInput.addEventListener('input', debounce(filterData, 300));
+    }
+    
+    if (routeFilter) {
+        routeFilter.addEventListener('change', filterData);
+    }
+}
+
+// Debounce function para optimizar búsqueda
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
 
 function initializeApp() {
     const fileInput = document.getElementById('fileInput');
@@ -206,62 +378,178 @@ function showFileInfo(fileName, studentCount, routeCount) {
     document.getElementById('fileInfo').style.display = 'block';
 }
 
-// Mostrar vista previa
+// Mostrar vista previa mejorada
 function showPreview() {
     const previewSection = document.getElementById('previewSection');
     const dataSummary = document.getElementById('dataSummary');
     const previewTableBody = document.getElementById('previewTableBody');
+    const routeFilter = document.getElementById('routeFilter');
 
-    // Crear resumen con cálculo correcto de páginas
-    // Calcular páginas reales: 1 página de índice + páginas por ruta (cada lote de 12 = 2 páginas)
+    // Actualizar progreso
+    progressManager.setStep(2);
+
+    // Crear dashboard de estadísticas mejorado
     let totalPages = 1; // Página de índice
+    const routeStats = {};
+    
     Object.keys(routesData).forEach(route => {
         const studentsInRoute = routesData[route].length;
         const batchesInRoute = Math.ceil(studentsInRoute / 12);
-        totalPages += batchesInRoute * 2; // Cada lote = 2 páginas (frente y reverso)
+        const pagesInRoute = batchesInRoute * 2;
+        totalPages += pagesInRoute;
+        
+        routeStats[route] = {
+            students: studentsInRoute,
+            pages: pagesInRoute
+        };
     });
     
     dataSummary.innerHTML = `
-        <div class="summary-item">
-            <div class="number">${studentsData.length}</div>
-            <div class="label">Total Estudiantes</div>
+        <div class="stat-card">
+            <span class="stat-icon">👥</span>
+            <span class="stat-number">${studentsData.length}</span>
+            <span class="stat-label">Total Estudiantes</span>
         </div>
-        <div class="summary-item">
-            <div class="number">${Object.keys(routesData).length}</div>
-            <div class="label">Rutas Diferentes</div>
+        <div class="stat-card">
+            <span class="stat-icon">🚌</span>
+            <span class="stat-number">${Object.keys(routesData).length}</span>
+            <span class="stat-label">Rutas Diferentes</span>
         </div>
-        <div class="summary-item">
-            <div class="number">${totalPages}</div>
-            <div class="label">Páginas Totales</div>
+        <div class="stat-card">
+            <span class="stat-icon">📄</span>
+            <span class="stat-number">${totalPages}</span>
+            <span class="stat-label">Páginas Totales</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon">🎫</span>
+            <span class="stat-number">${studentsData.length}</span>
+            <span class="stat-label">Carnés Totales</span>
         </div>
     `;
 
-    // Mostrar tabla completa de vista previa con scroll
+    // Llenar filtro de rutas
+    routeFilter.innerHTML = '<option value="">📍 Todas las rutas</option>';
+    Object.keys(routesData).sort().forEach(route => {
+        const option = document.createElement('option');
+        option.value = route;
+        option.textContent = `${route} (${routesData[route].length} estudiantes)`;
+        routeFilter.appendChild(option);
+    });
+
+    // Inicializar datos filtrados
+    filteredData = [...studentsData];
+    updateTable();
+
+    previewSection.style.display = 'block';
+    previewSection.classList.add('fade-in');
+    
+    toast.show(`${studentsData.length} estudiantes cargados correctamente`, 'success', 'Vista previa lista');
+}
+
+// Función para filtrar datos
+function filterData() {
+    const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
+    const selectedRoute = document.getElementById('routeFilter')?.value || '';
+    
+    filteredData = studentsData.filter(student => {
+        const matchesSearch = !searchTerm || 
+            student.nombre.toLowerCase().includes(searchTerm) ||
+            student.cedula.toLowerCase().includes(searchTerm);
+            
+        const matchesRoute = !selectedRoute || student.ruta === selectedRoute;
+        
+        return matchesSearch && matchesRoute;
+    });
+    
+    updateTable();
+}
+
+// Actualizar tabla con datos filtrados
+function updateTable() {
+    const previewTableBody = document.getElementById('previewTableBody');
     previewTableBody.innerHTML = '';
     
-    // Mostrar TODOS los estudiantes, no solo los primeros 10
-    studentsData.forEach((student, index) => {
+    if (filteredData.length === 0) {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${index + 1}</td>
-            <td>${student.nombre}</td>
-            <td>${student.cedula}</td>
-            <td>${student.ruta}</td>
+            <td colspan="5" style="text-align: center; padding: 40px; color: #6b7280;">
+                <div>🔍</div>
+                <div style="margin-top: 10px;">No se encontraron estudiantes con esos criterios</div>
+            </td>
+        `;
+        previewTableBody.appendChild(row);
+        return;
+    }
+    
+    filteredData.forEach((student, index) => {
+        const globalIndex = studentsData.indexOf(student) + 1;
+        const row = document.createElement('tr');
+        
+        // Determinar estado del estudiante
+        const status = getStudentStatus(student);
+        
+        row.innerHTML = `
+            <td>${globalIndex}</td>
+            <td>
+                <div class="student-name">${student.nombre}</div>
+            </td>
+            <td>
+                <code class="cedula-code">${student.cedula}</code>
+            </td>
+            <td>
+                <span class="route-badge">${student.ruta}</span>
+            </td>
+            <td>
+                <span class="status-badge ${status.class}">${status.text}</span>
+            </td>
         `;
         previewTableBody.appendChild(row);
     });
 
-    // Agregar información al final de la tabla
+    // Agregar información de resumen
     const infoRow = document.createElement('tr');
     infoRow.innerHTML = `
-        <td colspan="4" style="text-align: center; font-style: italic; color: #666; background-color: #f8f9fa; padding: 10px;">
-            Total: ${studentsData.length} estudiantes cargados correctamente
+        <td colspan="5" style="text-align: center; font-style: italic; color: #666; background-color: #f8f9fa; padding: 15px;">
+            <strong>Mostrando ${filteredData.length} de ${studentsData.length} estudiantes</strong>
+            ${filteredData.length !== studentsData.length ? ' • Use los filtros para refinar la búsqueda' : ''}
         </td>
     `;
     previewTableBody.appendChild(infoRow);
+}
 
-    previewSection.style.display = 'block';
-    previewSection.classList.add('fade-in');
+// Obtener estado del estudiante
+function getStudentStatus(student) {
+    if (!student.nombre || !student.cedula || !student.ruta) {
+        return { class: 'status-error', text: '❌ Incompleto' };
+    }
+    
+    if (student.nombre.length < 3) {
+        return { class: 'status-warning', text: '⚠️ Nombre corto' };
+    }
+    
+    return { class: 'status-ok', text: '✓ Válido' };
+}
+
+// Exportar datos filtrados
+function exportData() {
+    if (filteredData.length === 0) {
+        toast.show('No hay datos para exportar', 'warning');
+        return;
+    }
+    
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(filteredData.map((student, index) => ({
+        '#': index + 1,
+        'Nombre': student.nombre,
+        'Cédula': student.cedula,
+        'Ruta': student.ruta,
+        'Estado': getStudentStatus(student).text
+    })));
+    
+    XLSX.utils.book_append_sheet(wb, ws, 'Estudiantes');
+    XLSX.writeFile(wb, `Estudiantes_Filtrados_${new Date().toISOString().split('T')[0]}.xlsx`);
+    
+    toast.show(`${filteredData.length} registros exportados`, 'success', 'Exportación completada');
 }
 
 // Mostrar sección de generación
