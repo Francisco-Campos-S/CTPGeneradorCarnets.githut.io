@@ -137,6 +137,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePWA();
     initializeSearch();
     
+    // Actualizar año en el footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+    
     // Mostrar toast de bienvenida
     setTimeout(() => {
         toast.show('¡Bienvenido al generador de carnés!', 'success', 'Sistema listo');
@@ -614,7 +617,8 @@ function generatePDF() {
             generateCardsExactAsPython(pdf, [], cardWidth, cardHeight, marginX, marginY, spaceBetween, pageWidth, pageHeight, includeSeal);
 
             // Finalizar y descargar
-            const fileName = `Carnets_Transporte_${new Date().getFullYear()}.pdf`;
+            const currentYear = new Date().getFullYear();
+            const fileName = `Carnets_Transporte_${currentYear}.pdf`;
             pdf.save(fileName);
 
             // Mostrar resultado exitoso
@@ -727,7 +731,8 @@ function createIndexPage(pdf, pageWidth, pageHeight) {
     yPos += 12;
     pdf.text(`Generado el: ${new Date().toLocaleDateString('es-CR')}`, pageWidth / 2, yPos, { align: 'center' });
     yPos += 12;
-    pdf.text(`Año lectivo: ${new Date().getFullYear()}`, pageWidth / 2, yPos, { align: 'center' });
+    const currentYear = new Date().getFullYear();
+    pdf.text(`Año lectivo: ${currentYear}`, pageWidth / 2, yPos, { align: 'center' });
 }
 
 // Función para generar carnés con lógica EXACTA de Python
@@ -774,13 +779,16 @@ function generateCardsExactAsPython(pdf, students, cardWidth, cardHeight, margin
                 const originalCol = i % cardsPerRow;
                 const row = Math.floor(i / cardsPerRow);
                 
-                // Si solo hay 1 carné en el lote, mantener la misma posición
-                // Si hay 2 o más carnés, invertir posición horizontal para impresión duplex
+                // Lógica mejorada para impresión duplex:
+                // - Si solo hay 1 carné en el lote, mantener la misma posición (no invertir)
+                // - Si hay 2 o más carnés, invertir posición horizontal para impresión duplex correcta
+                // - Esto asegura que los carnés queden alineados correctamente al imprimir
                 let col;
                 if (batch.length === 1) {
-                    col = originalCol; // Mantener la misma posición
+                    col = originalCol; // Mantener la misma posición para carné único
                 } else {
-                    col = (cardsPerRow - 1) - originalCol; // Invertir solo si hay más de 1
+                    // Para múltiples carnés, invertir posición para impresión duplex
+                    col = (cardsPerRow - 1) - originalCol;
                 }
                 
                 // Posición con espaciado correcto
@@ -898,7 +906,8 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
     // Texto inferior centrado y un poco más grande
     pdf.setFont('Helvetica', 'bold');
     pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para mayor visibilidad
-    const bottomText = 'Carné de Transporte 2025';
+    const currentYear = new Date().getFullYear();
+    const bottomText = `Carné de Transporte ${currentYear}`;
     const bottomWidth = pdf.getTextWidth(bottomText);
     pdf.text(bottomText, x + (cardWidth - bottomWidth) / 2, y + cardHeight - 1);
 }
