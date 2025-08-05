@@ -646,7 +646,7 @@ function createIndexPage(pdf, pageWidth, pageHeight) {
     // Título principal
     pdf.setFontSize(18);
     pdf.setFont('Helvetica', 'bold');
-    pdf.text('ÍNDICE DE CARNÉ POR RUTA', pageWidth / 2, 40, { align: 'center' });
+    pdf.text('ÍNDICE DE CARNÉS POR RUTA', pageWidth / 2, 40, { align: 'center' });
     
     // Línea decorativa bajo el título
     pdf.setLineWidth(0.5);
