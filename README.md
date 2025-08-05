@@ -1,37 +1,6 @@
-# 🚌 Generador de Carnés de Transporte CTP S## ### 🎨 **Interfaz Moderna 2025**
-- 🌓 **Modo oscuro/claro** con alternancia y persistencia
-- 📱 **100% Responsive** - Móviles, tablets y desktop
-- ✨ **Efectos glassmorphism** y animaciones fluidas
-- �🎯 **Indicadores de progreso** visuales paso a paso
-- 🔔 **Sistema de notificaciones toast** con iconos
-- 📹 **Tutorial integrado** con video paso a pasoso Directo
+# 🚌 Generador de Carnés de Transporte CTP Sabalito
 
-### 🌐 **Usar Ahora (GitHub Pages)**
-```
-👉 https://francisco-campos-s.github.io/CTPGeneradorCarnets.githut.io/
-```
-
-### 📱 **Instalar como App**
-1. Visita el enlace en tu dispositivo
-2. Aparecerá un banner de instalación
-3. Toca "Instalar" para agregar a pantalla de inicio
-4. ¡Úsala como una app nativa!
-
-## 📹 **Tutorial en Video**
-
-### 🎥 **Aprende con Video Tutorial Completo**
-[![Tutorial CTP Sabalito](https://img.shields.io/badge/YouTube-Tutorial%20Completo-red?style=for-the-badge&logo=youtube)](https://youtu.be/-50Ebl_7W24)
-
-**🎯 En el video aprenderás:**
-- 📁 **Preparación correcta** del archivo Excel
-- ⬆️ **Carga de datos** de estudiantes paso a paso
-- 👀 **Uso de vista previa** y filtros avanzados
-- 🖨️ **Generación del PDF** final listo para imprimir
-- 🎨 **Configuraciones avanzadas** y personalización
-
-> 💡 **Tip**: El tutorial está integrado en la aplicación web para acceso rápido
-
-## 📊 **Funcionalidades de Generación**v align="center">
+<div align="center">
   <img src="assets/logo.png" alt="Logo CTP Sabalito" width="120"/>
   
   **Aplicación Web Progresiva (PWA) para Generación de Carnés de Transporte Estudiantil**
@@ -64,11 +33,17 @@
     <td align="center">📊</td>
     <td><strong>Dashboard Completo</strong><br/>Estadísticas y métricas en tiempo real</td>
   </tr>
+  <tr>
+    <td align="center">📅</td>
+    <td><strong>Año Dinámico</strong><br/>Se actualiza automáticamente según la fecha actual</td>
+    <td align="center">🖨️</td>
+    <td><strong>Impresión Dúplex Mejorada</strong><br/>Lógica optimizada para carnés únicos</td>
+  </tr>
 </table>
 
 ## 🌟 Características Principales
 
-### � **Aplicación Web Progresiva (PWA)**
+### 📱 **Aplicación Web Progresiva (PWA)**
 - 🔄 **Instalable** en dispositivos móviles y desktop
 - 💾 **Funciona offline** después de la primera carga
 - 🚀 **Service Worker** para caché inteligente
@@ -80,18 +55,33 @@
 - 📱 **100% Responsive** - Móviles, tablets y desktop
 - ✨ **Efectos glassmorphism** y animaciones fluidas
 - 🎯 **Indicadores de progreso** visuales paso a paso
-- � **Sistema de notificaciones toast** con iconos
+- 🔔 **Sistema de notificaciones toast** con iconos
+- 📹 **Tutorial integrado** con video paso a paso
 
 ### 🔍 **Búsqueda y Filtros Avanzados**
-- � **Búsqueda en tiempo real** con debouncing (300ms)
+- 🔍 **Búsqueda en tiempo real** con debouncing (300ms)
 - 📍 **Filtros por ruta** con contadores dinámicos
 - 📊 **Exportación de datos** filtrados a Excel
-- � **Dashboard de estadísticas** con métricas completas
+- 📈 **Dashboard de estadísticas** con métricas completas
 - ✅ **Validación de estado** por estudiante
 
-### � **Funcionalidades Técnicas**
+### 🖨️ **Impresión Dúplex Optimizada**
+- 🎯 **Lógica inteligente** para carnés únicos en página
+- 📐 **Alineación perfecta** entre frente y reverso
+- 🔄 **Inversión automática** solo cuando es necesario
+- 📋 **Organización por rutas** para distribución eficiente
+- 🎫 **Formato estándar** de 12 carnés por página
+
+### 📅 **Año Dinámico Automático**
+- 🔄 **Actualización automática** del año en la interfaz web
+- 📄 **Año dinámico** en los carnés generados
+- 📋 **Año actual** en la página de índice del PDF
+- 💾 **Nombre de archivo** con año actual
+- ⚡ **Sin configuración manual** requerida
+
+### ⚡ **Funcionalidades Técnicas**
 - 📁 **Drag & Drop** para archivos Excel
-- � **Mapeo flexible** de columnas con reconocimiento inteligente
+- 🧠 **Mapeo flexible** de columnas con reconocimiento inteligente
 - 📊 **Vista previa interactiva** con paginación
 - 🎯 **Generación de PDF** optimizada por rutas
 - 💾 **Persistencia de configuración** en localStorage
@@ -103,11 +93,25 @@
 👉 https://francisco-campos-s.github.io/CTPGeneradorCarnets.githut.io/
 ```
 
-### � **Instalar como App**
+### 📱 **Instalar como App**
 1. Visita el enlace en tu dispositivo
 2. Aparecerá un banner de instalación
 3. Toca "Instalar" para agregar a pantalla de inicio
 4. ¡Úsala como una app nativa!
+
+## 📹 **Tutorial en Video**
+
+### 🎥 **Aprende con Video Tutorial Completo**
+[![Tutorial CTP Sabalito](https://img.shields.io/badge/YouTube-Tutorial%20Completo-red?style=for-the-badge&logo=youtube)](https://youtu.be/-50Ebl_7W24)
+
+**🎯 En el video aprenderás:**
+- 📁 **Preparación correcta** del archivo Excel
+- ⬆️ **Carga de datos** de estudiantes paso a paso
+- 👀 **Uso de vista previa** y filtros avanzados
+- 🖨️ **Generación del PDF** final listo para imprimir
+- 🎨 **Configuraciones avanzadas** y personalización
+
+> 💡 **Tip**: El tutorial está integrado en la aplicación web para acceso rápido
 
 ## 📊 **Funcionalidades de Generación**
 
@@ -118,8 +122,30 @@
 - 🏛️ **Reverso:** Sello institucional para validación oficial
 - 📑 **Organización por rutas** - Agrupación automática
 - 🖨️ **Listo para impresión dúplex** profesional
+- 📅 **Año actual** automático en todos los carnés
 
-## � Cómo Usar el Sistema
+### 🖨️ **Impresión Dúplex Mejorada**
+- 🎯 **Carnés únicos:** No se invierten para mantener alineación perfecta
+- 🔄 **Múltiples carnés:** Inversión automática para impresión dúplex correcta
+- 📐 **Alineación precisa:** Frente y reverso perfectamente alineados
+- 📋 **Optimización automática:** Lógica inteligente según cantidad de carnés
+
+## 📅 **Año Dinámico Automático**
+
+### 🔄 **Actualizaciones Automáticas**
+- **Interfaz web:** El año en el footer se actualiza automáticamente
+- **Carnés generados:** El texto "Carné de Transporte [AÑO]" usa el año actual
+- **Página de índice:** El "Año lectivo" muestra el año actual
+- **Nombre de archivo:** El PDF se guarda con el año actual
+- **Sin intervención:** Todo funciona automáticamente sin configuración
+
+### 💡 **Beneficios**
+- ✅ **Siempre actualizado** - No hay que cambiar manualmente el año
+- ✅ **Consistencia** - Mismo año en toda la aplicación
+- ✅ **Sin errores** - Elimina errores de año incorrecto
+- ✅ **Mantenimiento cero** - Funciona automáticamente
+
+## 📋 Cómo Usar el Sistema
 
 ### 1️⃣ **Preparar Datos de Estudiantes**
 
@@ -160,6 +186,7 @@ Columnas requeridas:
 - 🎫 **Carnés organizados** por ruta para fácil distribución
 - 🖨️ **Listo para imprimir** en impresora dúplex
 - 📐 **Formato estándar** de 12 carnés por página
+- 📅 **Año actual** automático en todos los elementos
 
 ## 🛠️ Tecnologías Utilizadas
 
@@ -279,7 +306,7 @@ xdg-open index.html  # Linux
 - ✅ Formato estándar para todos los carnés
 - ✅ Fácil distribución a conductores
 
-## � Configuración Avanzada
+## ⚙️ Configuración Avanzada
 
 ### Personalización de Assets 🎨
 ```javascript
@@ -333,15 +360,32 @@ Solución:
 ✅ Cerrar otras apps para liberar memoria
 ```
 
+### 🖨️ **Problemas de impresión dúplex**
+```
+Solución:
+✅ Verificar configuración de impresora dúplex
+✅ Usar papel de calidad estándar
+✅ Revisar orientación del papel
+✅ Probar con impresora compatible dúplex
+```
+
 ## 🔒 Privacidad y Seguridad
 
 - 🛡️ **Procesamiento local**: Todos los datos se procesan en el navegador
 - 🚫 **Sin servidor**: No se envían datos a ningún servidor
-- � **Sin almacenamiento**: Los archivos no se guardan permanentemente
+- 💾 **Sin almacenamiento**: Los archivos no se guardan permanentemente
 - 🔐 **HTTPS**: Conexión segura vía GitHub Pages
 - 👁️ **Sin tracking**: No se recopilan datos de usuarios
 
 ## 📈 Historial de Versiones
+
+### v2.2.0 (2025) - Año Dinámico e Impresión Mejorada 🆕
+- 📅 **Año dinámico automático** - Se actualiza según la fecha actual
+- 🖨️ **Impresión dúplex optimizada** - Lógica mejorada para carnés únicos
+- 🔄 **Actualización automática** del año en interfaz web, carnés y archivos
+- 📐 **Alineación perfecta** para impresión dúplex profesional
+- ⚡ **Sin configuración manual** - Todo funciona automáticamente
+- 🎯 **Lógica inteligente** - Carnés únicos no se invierten, múltiples sí
 
 ### v2.1.0 (2025) - Optimización Completa 🚀
 - 🗂️ **Repositorio optimizado** - Solo archivos esenciales
@@ -362,7 +406,7 @@ Solución:
 - ✨ **Efectos glassmorphism** y animaciones
 - 📱 **Responsive design** optimizado
 - ⚡ **Service Worker** para funcionalidad offline
-- � **Interfaz renovada** con esquema verde institucional
+- 🎨 **Interfaz renovada** con esquema verde institucional
 
 ### v2.0.0 (2025) - Renovación Base
 - ✨ Interfaz completamente rediseñada
@@ -427,7 +471,7 @@ CTPGeneradorCarnets.githut.io/
   
   **© 2025 Colegio Técnico Profesional Agropecuario de Sabalito**
   
-  *Generador de Carnés de Transporte v2.1 - Optimizado*
+  *Generador de Carnés de Transporte v2.2 - Año Dinámico e Impresión Mejorada*
   
   [![Hecho con ❤️](https://img.shields.io/badge/Hecho%20con-❤️-red?style=for-the-badge)](https://github.com/Francisco-Campos-S)
   [![GitHub](https://img.shields.io/badge/GitHub-Francisco--Campos--S-blue?style=for-the-badge&logo=github)](https://github.com/Francisco-Campos-S)
