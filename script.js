@@ -131,6 +131,12 @@ function loadImages() {
 
 // Inicialización
 document.addEventListener('DOMContentLoaded', function() {
+    // Establecer año actual en el footer
+    const currentYearElement = document.getElementById('currentYear');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
+    
     loadImages();
     loadSavedTheme();
     initializeApp();
@@ -898,7 +904,8 @@ function drawCardFrontExact(pdf, student, x, y, cardWidth, cardHeight) {
     // Texto inferior centrado y un poco más grande
     pdf.setFont('Helvetica', 'bold');
     pdf.setFontSize(9.5); // Aumentado de 8.5 a 9.5 para mayor visibilidad
-    const bottomText = 'Carné de Transporte 2025';
+    const currentYear = new Date().getFullYear();
+    const bottomText = `Carné de Transporte ${currentYear}`;
     const bottomWidth = pdf.getTextWidth(bottomText);
     pdf.text(bottomText, x + (cardWidth - bottomWidth) / 2, y + cardHeight - 1);
 }
